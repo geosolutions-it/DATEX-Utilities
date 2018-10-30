@@ -6,7 +6,12 @@
   <artifactId>datexgml</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>datexgml</name>
-  
+  	
+	<properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+		
   <dependencies>
   	<dependency>
 	    <groupId>org.apache.ws.commons</groupId>
@@ -26,31 +31,33 @@
 	</dependency>
   </dependencies>
   
-  <build>
-  	<plugin>
-	    <groupId>org.apache.maven.plugins</groupId>
-	    <artifactId>maven-assembly-plugin</artifactId>
-	    <executions>
-	        <execution>
-	            <phase>package</phase>
-	            <goals>
-	                <goal>single</goal>
-	            </goals>
-	            <configuration>
-	                <archive>
-	                <manifest>
-	                    <mainClass>
-	                        org.baeldung.executable.ExecutableMavenJar
-	                    </mainClass>
-	                </manifest>
-	                </archive>
-	                <descriptorRefs>
-	                    <descriptorRef>jar-with-dependencies</descriptorRef>
-	                </descriptorRefs>
-	            </configuration>
-	        </execution>
-	    </executions>
-	</plugin>
+   <build>
+	   <plugins>
+		  	<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-assembly-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <phase>package</phase>
+			            <goals>
+			                <goal>single</goal>
+			            </goals>
+			            <configuration>
+			                <archive>
+			                <manifest>
+			                    <mainClass>
+			                        org.geosolutions.datexgml.ConverterMain
+			                    </mainClass>
+			                </manifest>
+			                </archive>
+			                <descriptorRefs>
+			                    <descriptorRef>jar-with-dependencies</descriptorRef>
+			                </descriptorRefs>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+		</plugins>
   </build>
   
 </project>
