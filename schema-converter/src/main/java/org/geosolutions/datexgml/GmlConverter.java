@@ -139,6 +139,13 @@ public class GmlConverter {
         Node rootNode = nodeOpt.get();
         // add the root node
         addToMap(rootName, rootNode);
+        // if extends another type -> map that type:
+        Optional<Node> extensionNode = xpath(rootNode, "./complexContent/extension").findFirst();
+        extensionNode.ifPresent(e -> {
+            Element ex = (Element)e;
+            String exType = ex.getAttribute("base").replace("D2LogicalModel:", "");
+            treeToComplexMap(exType);
+        });
         // check all elements
         childElements(rootNode).forEach(n -> {
             Node type = n.getAttributes().getNamedItem("type");
@@ -257,8 +264,7 @@ public class GmlConverter {
     public String getResultDocAsString() {
         try {
             TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer transformer;
-            transformer = tf.newTransformer();
+            Transformer transformer = tf.newTransformer();
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
             StringWriter writer = new StringWriter();
             transformer.transform(new DOMSource(resultDoc), new StreamResult(writer));

@@ -48,8 +48,8 @@ public class GmlConverterTest {
         StringWriter writer = new StringWriter();
         transformer.transform(new DOMSource(doc), new StreamResult(writer));
         String output = writer.getBuffer().toString();
-//        FileUtils.writeStringToFile(new File("/home/fernando/Documents/datex_result.xsd"), output,
-//                StandardCharsets.UTF_8);
+        FileUtils.writeStringToFile(new File("/home/fernando/Documents/datex_result.xsd"), output,
+                StandardCharsets.UTF_8);
         //System.out.print(output);
     }
     

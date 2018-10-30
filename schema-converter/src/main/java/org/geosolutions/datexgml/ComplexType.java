@@ -29,16 +29,15 @@ public class ComplexType {
     
     public void buildResultNodes() {
         // type node
-        complexTypeNode = node.cloneNode(false);
-        String originalName = node.getAttributes().getNamedItem("name").getNodeValue();
-        String typeName = originalName + TYPE_SUFIX;
+        // deep clone only if extends another type
+        final boolean extendsAnother = extendsAnotherComplex(node);
+        complexTypeNode = node.cloneNode(extendsAnother);
+        final String originalName = node.getAttributes().getNamedItem("name").getNodeValue();
+        final String typeName = originalName + TYPE_SUFIX;
         complexTypeNode.getAttributes().getNamedItem("name").setNodeValue(typeName);
-        // already extends from another complex type?
-        if(!extendsAnotherComplex(node)) {
+        // if dont extends another type, build internal GML extension
+        if(!extendsAnother) {
             buildExtendedContent();
-        } else {
-            // TODO
-            // System.out.println("HERE EXTENSION TODO");
         }
         buildPropertyTypeNode(originalName);
         buildElementNode(originalName);
@@ -85,6 +84,10 @@ public class ComplexType {
             .findFirst().ifPresent(c -> {
                 complexTypeNode.appendChild(c.cloneNode(true));
             });
+        // delete abstract if have
+        if(((Element)complexTypeNode).hasAttribute("abstract")) {
+            ((Element)complexTypeNode).removeAttribute("abstract");
+        }
         // create /complexContent/extension nodes
         Element complexContentEl = node.getOwnerDocument()
                 .createElementNS(GmlConverter.DATEX_NS,"complexContent");

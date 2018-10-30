@@ -16719,7 +16719,7 @@ geometrical polygon.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="urlLink" type="D2LogicalModel:UrlLink" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="groupOfLocations" type="D2LogicalModel:GroupOfLocations" />
+      <xs:element name="groupOfLocations" type="D2LogicalModel:GroupOfLocationsLinear" />
       <xs:element name="management" type="D2LogicalModel:Management" minOccurs="0" />
       <xs:element name="situationRecordExtension" type="D2LogicalModel:_SituationRecordExtensionType" minOccurs="0" />
     </xs:sequence>
@@ -22215,4 +22215,13 @@ geometrical polygon.</xs:documentation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
+  <xs:complexType name="GroupOfLocationsLinear">
+	<xs:complexContent>
+	  <xs:extension base="D2LogicalModel:GroupOfLocations">
+		  <xs:sequence>
+		      <xs:element name="linearExtension" type="D2LogicalModel:_LinearExtensionType" minOccurs="0" />
+		  </xs:sequence>
+	  </xs:extension>
+	</xs:complexContent>
+  </xs:complexType>	
 </xs:schema>
