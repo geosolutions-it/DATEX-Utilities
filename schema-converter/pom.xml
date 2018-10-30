@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.geosolutions</groupId>
+  <artifactId>datexgml</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>datexgml</name>
+  
+  <dependencies>
+  	<dependency>
+	    <groupId>org.apache.ws.commons</groupId>
+	    <artifactId>ws-commons-util</artifactId>
+	    <version>1.0.1</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-io</groupId>
+	    <artifactId>commons-io</artifactId>
+	    <version>2.6</version>
+	</dependency>
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.12</version>
+	    <scope>test</scope>
+	</dependency>
+  </dependencies>
+  
+  <build>
+  	<plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-assembly-plugin</artifactId>
+	    <executions>
+	        <execution>
+	            <phase>package</phase>
+	            <goals>
+	                <goal>single</goal>
+	            </goals>
+	            <configuration>
+	                <archive>
+	                <manifest>
+	                    <mainClass>
+	                        org.baeldung.executable.ExecutableMavenJar
+	                    </mainClass>
+	                </manifest>
+	                </archive>
+	                <descriptorRefs>
+	                    <descriptorRef>jar-with-dependencies</descriptorRef>
+	                </descriptorRefs>
+	            </configuration>
+	        </execution>
+	    </executions>
+	</plugin>
+  </build>
+  
+</project>
