@@ -37,6 +37,9 @@ public class GmlConverterTest {
         assertTrue(situationNode != null);
     }
     
+    /**
+     * Generates an output xml, use this for to get a file and check
+     */
     @Test
     public void testOutputFile() throws Exception {
         GmlConverter conv = getConverter();
@@ -58,7 +61,7 @@ public class GmlConverterTest {
         GmlConverter conv = getConverter();
         conv.treeToComplexMap("Situation");
         Map<String, ComplexType> map = conv.getComplexMap();
-        assertEquals(28, map.size());
+        assertEquals(42, map.size());
     }
     
 }

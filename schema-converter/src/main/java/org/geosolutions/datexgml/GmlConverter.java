@@ -37,6 +37,8 @@ import org.xml.sax.SAXException;
 
 public class GmlConverter {
     
+    public static final String XMLNS = "http://www.w3.org/2001/XMLSchema";
+    public static final String XS_NS = "http://www.w3.org/2001/XMLSchema";
     public static final String DATEX_NS = "http://datex2.eu/schema/2/2_0";
     public static final String DATEX_PREFIX = "D2LogicalModel";
     public static final List<String> ROOT_NAMES = Arrays.asList("Situation");
@@ -71,22 +73,7 @@ public class GmlConverter {
             Element complexNode = (Element) resultDoc.importNode(x.getValue().getComplexTypeNode(), true);
             schema.appendChild(complexNode);
             // convert internal element type
-            xpath(complexNode, "descendant::element").forEach(e -> {
-                Element element = (Element) e;
-                final String typeName = element.getAttribute("type")
-                        .replace("D2LogicalModel:", "");
-                // if type is a GML geometry definition, replace with real gml type
-                if(geomTypesToReplace().contains(typeName)) {
-                    element.setAttribute("type", "gml:GeometryPropertyType");
-                    return;
-                }
-                // if type is indexed on dependents complex types map
-                if(getComplexMap().containsKey(typeName)) {
-                    // add propertyType to type name
-                    element.setAttribute("type", element.getAttribute("type") 
-                            + ComplexType.PROPERTY_TYPE_SUFIX);
-                }
-            });
+            processElements(complexNode);
             // append propertyType and Element
             schema.appendChild(resultDoc.importNode(x.getValue().getComplexPropertyTypeNode(), true));
             schema.appendChild(resultDoc.importNode(x.getValue().getElementNode(), true));
@@ -94,6 +81,54 @@ public class GmlConverter {
         simpleTypes.forEach(x -> {
             schema.appendChild(resultDoc.importNode(x, true));
         });
+    }
+
+    protected void processElements(Element complexNode) {
+        // modify elements type
+        xpath(complexNode, "descendant::element").forEach(e -> {
+            Element element = (Element) e;
+            final String typeName = element.getAttribute("type")
+                    .replace("D2LogicalModel:", "");
+            // if type is a GML geometry definition, replace with real gml type
+            if(geomTypesToReplace().contains(typeName)) {
+                element.setAttribute("type", "gml:GeometryPropertyType");
+                return;
+            }
+            // if type is indexed on dependents complex types map
+            if(getComplexMap().containsKey(typeName)) {
+                // add propertyType to type name
+                element.setAttribute("type", element.getAttribute("type") 
+                        + ComplexType.PROPERTY_TYPE_SUFIX);
+            }
+        });
+        // convert attributes into elements
+        List<Node> attributes = xpath(complexNode, "descendant::attribute")
+                .collect(Collectors.toList());
+        if(!attributes.isEmpty()) {
+            Element complexMain = (Element)attributes.get(0).getParentNode();
+            // get existing sequence element, or create it if don't exists
+            Element sequence = (Element)xpath(complexMain, "child::sequence").findFirst()
+                .orElseGet(()->{
+                    Element sequence1 = complexNode.getOwnerDocument().createElementNS(XS_NS, "xs:sequence");
+                    complexMain.appendChild(sequence1);
+                    return sequence1;
+            });
+            // for every atrribute, convert it to an element tag within sequence
+            attributes.forEach(a -> {
+                // create and append element
+                Element attr = (Element)a;
+                String name = attr.getAttribute("name");
+                String type = attr.getAttribute("type");
+                Element element = complexNode.getOwnerDocument().createElementNS(XS_NS, "xs:element");
+                element.setAttribute("name", name);
+                element.setAttribute("type", type);
+                // minOccurs="0"
+                element.setAttribute("minOccurs", "0");
+                sequence.appendChild(element);
+                // delete attribute
+                complexMain.removeChild(attr);
+            });
+        }
     }
     
     protected void createNewDocument() {
@@ -105,6 +140,13 @@ public class GmlConverter {
             Node schemaNode = doc.getFirstChild().cloneNode(false);
             resultDoc.adoptNode(schemaNode);
             resultDoc.appendChild(schemaNode);
+            // xmlns:gml="http://www.opengis.net/gml/3.2"
+            ((Element)schemaNode).setAttribute("xmlns:gml", "http://www.opengis.net/gml/3.2");
+            // add import gml schema
+            Element importElement = resultDoc.createElementNS(XS_NS, "xs:import");
+            importElement.setAttribute("namespace", "http://www.opengis.net/gml/3.2");
+            importElement.setAttribute("schemaLocation", "http://schemas.opengis.net/gml/3.2.1/gml.xsd");
+            schemaNode.appendChild(importElement);
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         }

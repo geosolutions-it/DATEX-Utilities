@@ -46,7 +46,7 @@ public class ComplexType {
     protected void buildElementNode(String name) {
         // element
         Element element = node.getOwnerDocument()
-                .createElementNS(GmlConverter.DATEX_NS, "xs:element");
+                .createElementNS(GmlConverter.XS_NS, "xs:element");
         element.setAttribute("name", name);
         element.setAttribute("type", GmlConverter.DATEX_PREFIX + ":" + name + TYPE_SUFIX);
         element.setAttribute("substitutionGroup", "gml:AbstractFeature");
@@ -56,22 +56,22 @@ public class ComplexType {
     protected void buildPropertyTypeNode(String name) {
         // complexType
         Element ptNode = node.getOwnerDocument()
-                .createElementNS(GmlConverter.DATEX_NS, "xs:complexType");
+                .createElementNS(GmlConverter.XS_NS, "xs:complexType");
         ptNode.setAttribute("name", name + PROPERTY_TYPE_SUFIX);
         complexPropertyTypeNode = ptNode;
         // sequence
         Element sequence = node.getOwnerDocument()
-                .createElementNS(GmlConverter.DATEX_NS, "xs:sequence");
+                .createElementNS(GmlConverter.XS_NS, "xs:sequence");
         sequence.setAttribute("minOccurs", "0");
         ptNode.appendChild(sequence);
         // element
         Element element = node.getOwnerDocument()
-                .createElementNS(GmlConverter.DATEX_NS, "xs:element");
+                .createElementNS(GmlConverter.XS_NS, "xs:element");
         element.setAttribute("ref", GmlConverter.DATEX_PREFIX + ":" + name);
         sequence.appendChild(element);
         // complexType/attributeGroup 
         Element attributeGroup = node.getOwnerDocument()
-                .createElementNS(GmlConverter.DATEX_NS, "xs:attributeGroup");
+                .createElementNS(GmlConverter.XS_NS, "xs:attributeGroup");
         attributeGroup.setAttribute("ref", "gml:AssociationAttributeGroup");
         ptNode.appendChild(attributeGroup);
     }
@@ -90,10 +90,10 @@ public class ComplexType {
         }
         // create /complexContent/extension nodes
         Element complexContentEl = node.getOwnerDocument()
-                .createElementNS(GmlConverter.DATEX_NS,"xs:complexContent");
+                .createElementNS(GmlConverter.XS_NS,"xs:complexContent");
         complexTypeNode.appendChild(complexContentEl);
         Element extensionEl = node.getOwnerDocument()
-                .createElementNS(GmlConverter.DATEX_NS,"xs:extension");
+                .createElementNS(GmlConverter.XS_NS,"xs:extension");
         extensionEl.setAttribute("base", "gml:AbstractFeatureType");
         complexContentEl.appendChild(extensionEl);
         // append original childs
