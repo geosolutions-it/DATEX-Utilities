@@ -3,6 +3,7 @@ package org.geosolutions.datexgml;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
 
@@ -14,7 +15,11 @@ public class ConverterMain {
         }
         String filePath = args[0];
         File file = new File(filePath);
-        GmlConverter converter = new GmlConverter(file);
+        String targetNamespace;
+        if(args.length < 3) targetNamespace = GmlConverter.DATEX_NS;
+            else targetNamespace = args[2];
+        GmlConverter converter = new GmlConverter(file, Arrays.asList(args[1].split(",")), 
+                targetNamespace);
         String result = converter.convert().getResultDocAsString();
         File out = new File(filePath + ".converted");
         FileUtils.writeStringToFile(out, result, StandardCharsets.UTF_8);

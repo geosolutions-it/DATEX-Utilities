@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.xml.transform.OutputKeys;
@@ -24,7 +25,8 @@ public class GmlConverterTest {
     
     GmlConverter getConverter() {
         try {
-            return new GmlConverter(new File(this.getClass().getResource("datex.xsd").toURI()));
+            return new GmlConverter(new File(this.getClass().getResource("datex.xsd").toURI()),
+                    Arrays.asList("Situation"), GmlConverter.DATEX_NS);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

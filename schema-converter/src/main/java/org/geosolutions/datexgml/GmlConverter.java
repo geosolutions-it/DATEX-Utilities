@@ -41,22 +41,21 @@ public class GmlConverter {
     public static final String XS_NS = "http://www.w3.org/2001/XMLSchema";
     public static final String DATEX_NS = "http://datex2.eu/schema/2/2_0";
     public static final String DATEX_PREFIX = "D2LogicalModel";
-    public static final List<String> ROOT_NAMES = Arrays.asList("Situation");
     
     private File file;
     private Document doc;
     private Document resultDoc;
     private Map<String, ComplexType> complexMap = new HashMap<>();
     private List<Node> simpleTypes;
+    private List<String> rootTypesNames;
+    private String targetNamespace;
     
-    public GmlConverter(File file) {
+    public GmlConverter(File file, List<String> rootTypesNames, String targetNamespace) {
         super();
         this.file = file;
-        try {
-            doc = load();
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        doc = load();
+        this.rootTypesNames = rootTypesNames;
+        this.targetNamespace = targetNamespace;
     }
 
     public GmlConverter convert() {
@@ -142,6 +141,10 @@ public class GmlConverter {
             resultDoc.appendChild(schemaNode);
             // xmlns:gml="http://www.opengis.net/gml/3.2"
             ((Element)schemaNode).setAttribute("xmlns:gml", "http://www.opengis.net/gml/3.2");
+            // targetNamespace
+            ((Element)schemaNode).setAttribute("targetNamespace", targetNamespace);
+            // xmlns:D2LogicalModel
+            ((Element)schemaNode).setAttribute("xmlns:D2LogicalModel", targetNamespace);
             // add import gml schema
             Element importElement = resultDoc.createElementNS(XS_NS, "xs:import");
             importElement.setAttribute("namespace", "http://www.opengis.net/gml/3.2");
@@ -159,7 +162,7 @@ public class GmlConverter {
     }
     
     protected void buildMaps() {
-        ROOT_NAMES.forEach(x -> treeToComplexMap(x));
+        rootTypesNames.forEach(x -> treeToComplexMap(x));
         buildSimpleTypesList();
     }
     
@@ -275,11 +278,16 @@ public class GmlConverter {
         return xPath;
     }
     
-    protected Document load() throws ParserConfigurationException, SAXException, IOException {
+    protected Document load() {
+        try {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+        DocumentBuilder docBuilder;
+        docBuilder = docFactory.newDocumentBuilder();
         Document doc = docBuilder.parse(file);
         return doc;
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     Map<String, ComplexType> getComplexMap() {
