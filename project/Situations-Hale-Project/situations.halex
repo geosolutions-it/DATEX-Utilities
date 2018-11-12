@@ -2,8 +2,8 @@
 <hale-project version="3.3.0.SNAPSHOT">
     <name>situations</name>
     <author>geosolutions</author>
-    <created>2018-11-05T14:44:11.206+01:00</created>
-    <modified>2018-11-08T17:32:22.968+01:00</modified>
+    <created>2018-11-07T17:58:04.439+01:00</created>
+    <modified>2018-11-12T14:56:26.563+01:00</modified>
     <save-config action-id="project.save" provider-id="eu.esdihumboldt.hale.io.project.hale25.xml.writer">
         <setting name="charset">UTF-8</setting>
         <setting name="projectFiles.separate">false</setting>
@@ -12,25 +12,24 @@
     </save-config>
     <resource action-id="eu.esdihumboldt.hale.io.schema.read.source" provider-id="eu.esdihumboldt.hale.io.mongo.schema">
         <setting name="charset">UTF-8</setting>
-        <setting name="resourceId">0b1ed3cd-9b63-4c36-ac5e-26bf80ae0cc1</setting>
-        <setting name="MONGO_AUTHENTICATION_DATABASE">npra05112018</setting>
+        <setting name="resourceId">14ffd61b-e569-4254-a1f0-16630269ae0f</setting>
+        <setting name="MONGO_AUTHENTICATION_DATABASE"></setting>
         <setting name="SPECIFIC_ELEMENTS"></setting>
-        <setting name="MAX_ELEMENTS">5000</setting>
+        <setting name="MAX_ELEMENTS">10000</setting>
         <setting name="MONGO_USER"></setting>
-        <setting name="source">mongodb://127.0.0.1:27017/npra05112018</setting>
+        <setting name="source">mongodb://localhost:27017/npra05112018</setting>
         <setting name="contentType">eu.esdihumboldt.hale.io.mongo</setting>
         <setting name="MONGO_COLLECTION_NAME">geoJsonSituation</setting>
     </resource>
     <resource action-id="eu.esdihumboldt.hale.io.schema.read.target" provider-id="eu.esdihumboldt.hale.io.xsd.reader">
         <setting name="charset">UTF-8</setting>
         <setting name="onlyElementsMappable">true</setting>
-        <setting name="resourceId">9d974836-1501-4407-9adf-cba8ca5602ac</setting>
-        <setting name="source">file:/C:/Users/geosolutions/Fouad/NPRA/datex_gml_2.3_02.xsd</setting>
+        <setting name="resourceId">e3fcc524-768b-4c3f-807d-c1ba589c7309</setting>
+        <setting name="source">https://www.dropbox.com/s/jk3sz6ytfjllkrb/datex_2.3_gml.xsd?dl=1</setting>
         <setting name="contentType">eu.esdihumboldt.hale.io.xsd</setting>
     </resource>
     <file name="alignment.xml" location="situations.halex.alignment.xml"/>
     <file name="styles.sld" location="situations.halex.styles.sld"/>
-    <property name="compatibilityMode">eu.esdihumboldt.cst.compatibility</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CauseType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CauseType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CauseType/count">2</property>
@@ -124,10 +123,6 @@
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}SituationRecordExtendedApprovedType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}SituationRecordExtendedApprovedType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}SituationRecordExtendedApprovedType/count">2</property>
-    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}SituationRecordPropertyType/1">{http://www.vegvesen.no/datex/1.0}SituationRecord</property>
-    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}SituationRecordPropertyType/2">{http://www.opengis.net/gml/3.2}boundedBy</property>
-    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}SituationRecordPropertyType/3">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
-    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}SituationRecordPropertyType/count">3</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}SituationRecordType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}SituationRecordType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}SituationRecordType/count">2</property>
