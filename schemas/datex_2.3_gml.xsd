@@ -1,222 +1,153 @@
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.vegvesen.no/datex/1.0" version="2.3" xmlns:npra="http://www.vegvesen.no/datex/1.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.vegvesen.no/datex/1.0" version="2.3" xmlns:D2LogicalModel="http://www.vegvesen.no/datex/1.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
-  <xs:complexType name="OpenlrLastLocationReferencePointType">
-    <xs:annotation>
-      <xs:documentation>The sequence of location reference points is terminated by a last location reference point.</xs:documentation>
-    </xs:annotation>
+  <xs:complexType name="ExternalReferencingType">
     <xs:complexContent>
-      <xs:extension base="npra:OpenlrBaseLocationReferencePoint">
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>A location defined by reference to an external/other referencing system.</xs:documentation>
+        </xs:annotation>
         <xs:sequence>
-          <xs:element minOccurs="0" name="openlrLastLocationReferencePointExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="externalLocationCode" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>A code in the external referencing system which defines the location.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="externalReferencingSystem" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>Identification of the external/other location referencing system.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="externalReferencingExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="OpenlrLastLocationReferencePointPropertyType">
+  <xs:complexType name="ExternalReferencingPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:OpenlrLastLocationReferencePoint"/>
+      <xs:element ref="D2LogicalModel:ExternalReferencing"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="OpenlrLastLocationReferencePoint" substitutionGroup="gml:AbstractFeature" type="npra:OpenlrLastLocationReferencePointType"/>
+  <xs:element name="ExternalReferencing" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:ExternalReferencingType"/>
   <xs:complexType name="GroupOfLocationsLinearType">
     <xs:complexContent>
-      <xs:extension base="npra:GroupOfLocations">
+      <xs:extension base="D2LogicalModel:GroupOfLocations">
         <xs:sequence>
-          <xs:element minOccurs="0" name="linearExtension" type="npra:_LinearExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="linearExtension" type="D2LogicalModel:_LinearExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="GroupOfLocationsLinearPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:GroupOfLocationsLinear"/>
+      <xs:element ref="D2LogicalModel:GroupOfLocationsLinear"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="GroupOfLocationsLinear" substitutionGroup="gml:AbstractFeature" type="npra:GroupOfLocationsLinearType"/>
-  <xs:complexType name="SituationRecordExtendedApprovedType">
+  <xs:element name="GroupOfLocationsLinear" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:GroupOfLocationsLinearType"/>
+  <xs:complexType name="CctvStillImageServiceType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
         <xs:annotation>
-          <xs:documentation>Extension class for SituationRecord.</xs:documentation>
+          <xs:documentation>Details of a still image service available from the CCTV camera.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="0" name="safetyRelatedMessage" type="npra:Boolean">
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvStillImageServiceLevel" type="D2LogicalModel:NonNegativeInteger">
             <xs:annotation>
-              <xs:documentation>Indicates, whether this SituationRecord specifies a safety related message according to Commission Delegated Regulation (EU) No 886/2013.</xs:documentation>
+              <xs:documentation>The level assigned to this still image service.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvStillImageServiceLevelName" type="D2LogicalModel:MultilingualStringPropertyType">
+            <xs:annotation>
+              <xs:documentation>The name assigned to this still image service level.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvStillImageFormat" type="D2LogicalModel:CctvStillImageFormatEnum">
+            <xs:annotation>
+              <xs:documentation>Still image format (e.g. jpeg).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvStillImageWidth" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>Still image width in pixels.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvStillImageHeight" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>Still image height in pixels.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvStillImageZoomBlankingLevel" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The zoom level beyond which still images for this service level will be blanked.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="stillImageUrl" type="D2LogicalModel:UrlLinkPropertyType">
+            <xs:annotation>
+              <xs:documentation>The URL from where the current still images from the CCTV camera can be obtained.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="orientationImageUrl" type="D2LogicalModel:UrlLinkPropertyType">
+            <xs:annotation>
+              <xs:documentation>The URL from where a sample orientation image for the still image service from the CCTV camera can be obtained to assist in identifying camera orientation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="thumbnailImageUrl" type="D2LogicalModel:UrlLinkPropertyType">
+            <xs:annotation>
+              <xs:documentation>Thumbnail image URL</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="cctvStillImageServiceExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="SituationRecordExtendedApprovedPropertyType">
+  <xs:complexType name="CctvStillImageServicePropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:SituationRecordExtendedApproved"/>
+      <xs:element ref="D2LogicalModel:CctvStillImageService"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="SituationRecordExtendedApproved" substitutionGroup="gml:AbstractFeature" type="npra:SituationRecordExtendedApprovedType"/>
-  <xs:complexType name="TimePeriodOfDayType">
+  <xs:element name="CctvStillImageService" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:CctvStillImageServiceType"/>
+  <xs:complexType name="CctvCameraNonDwellZoneType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
         <xs:annotation>
-          <xs:documentation>Specification of a continuous period of time within a 24 hour period.</xs:documentation>
+          <xs:documentation>A viewing zone in which the CCTV camera is not allowed to stop,identified by a virtual rectangular area defined by a top left and bottom right position. Normally the camera is automatically moved through this zone expeditiously.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element minOccurs="0" name="timePeriodOfDayExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvNonDwellTopLeftPanValue" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The pan value for the CCTV camera at the top left of the dwell zone.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvNonDwellTopLeftTiltValue" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The tilt value for the CCTV camera at the top left of the dwell zone.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvNonDwellBottomRightPanValue" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The pan value for the CCTV camera at the bottom right of the dwell zone.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvNonDwellBottomRightTiltValue" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The tilt value for the CCTV camera at the bottom right of the dwell zone.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="cctvCameraNonDwellZoneExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="TimePeriodOfDayPropertyType">
+  <xs:complexType name="CctvCameraNonDwellZonePropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:TimePeriodOfDay"/>
+      <xs:element ref="D2LogicalModel:CctvCameraNonDwellZone"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="TimePeriodOfDay" substitutionGroup="gml:AbstractFeature" type="npra:TimePeriodOfDayType"/>
-  <xs:complexType name="LifeCycleManagementType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:annotation>
-          <xs:documentation>Information relating to the life cycle management of the situation record.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="0" name="cancel" type="npra:Boolean">
-            <xs:annotation>
-              <xs:documentation>Indication that all the element information previously sent is not considered valid, due to an incorrect content.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="end" type="npra:Boolean">
-            <xs:annotation>
-              <xs:documentation>A binary attribute specifying whether the situation element is finished (true) or not (false). If finished (i.e. end is true) then the overallEndTime in the OverallPeriod class associated with the SituationRecord must be populated.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element minOccurs="0" name="lifeCycleManagementExtension" type="npra:_ExtensionTypePropertyType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="LifeCycleManagementPropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:LifeCycleManagement"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="LifeCycleManagement" substitutionGroup="gml:AbstractFeature" type="npra:LifeCycleManagementType"/>
-  <xs:complexType name="SituationType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:annotation>
-          <xs:documentation>An identifiable instance of a traffic/travel situation comprising one or more traffic/travel circumstances which are linked by one or more causal relationships. Each traffic/travel circumstance is represented by a Situation Record.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="0" name="overallSeverity" type="npra:SeverityEnum">
-            <xs:annotation>
-              <xs:documentation>The overall assessment of the impact (in terms of severity) that the situation as a whole is having, or will have, on the traffic flow as perceived by the supplier.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="relatedSituation" type="npra:_SituationVersionedReferencePropertyType">
-            <xs:annotation>
-              <xs:documentation>A reference to a related situation via its unique identifier.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="situationVersionTime" type="npra:DateTime">
-            <xs:annotation>
-              <xs:documentation>The date/time that this current version of the Situation was written into the database of the supplier which is involved in the data exchange. Identity and version of the situation are defined by the class stereotype implementation.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="headerInformation" type="npra:HeaderInformationPropertyType"/>
-          <xs:element maxOccurs="unbounded" name="situationRecord" type="npra:SituationRecordPropertyType"/>
-          <xs:element minOccurs="0" name="situationExtension" type="npra:_ExtensionTypePropertyType"/>
-          <xs:element minOccurs="0" name="id" type="xs:string"/>
-          <xs:element minOccurs="0" name="version" type="xs:string"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="SituationPropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:Situation"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="Situation" substitutionGroup="gml:AbstractFeature" type="npra:SituationType"/>
-  <xs:complexType name="OpenlrPathAttributesType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:annotation>
-          <xs:documentation>The field path attributes is part of a location reference point (except for the last location reference point) and consists of lowest functional road class (LFRCNP) and distance to next point (DNP) data.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="openlrLowestFRCToNextLRPoint" type="npra:OpenlrFunctionalRoadClassEnum">
-            <xs:annotation>
-              <xs:documentation>The lowest FRC to the next point indicates the lowest functional road class used in the location reference path to the next LR-point.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="openlrDistanceToNextLRPoint" type="npra:NonNegativeInteger">
-            <xs:annotation>
-              <xs:documentation>The DNP attribute measures the distance in meters between two consecutive LR-points along the location reference path as described in the logical format.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element minOccurs="0" name="openlrPathAttributesExtension" type="npra:_ExtensionTypePropertyType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="OpenlrPathAttributesPropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:OpenlrPathAttributes"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="OpenlrPathAttributes" substitutionGroup="gml:AbstractFeature" type="npra:OpenlrPathAttributesType"/>
-  <xs:complexType name="SourceType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:annotation>
-          <xs:documentation>Details of the source from which the information was obtained.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="0" name="sourceCountry" type="npra:CountryEnum">
-            <xs:annotation>
-              <xs:documentation>ISO 3166-1 two character country code of the source of the information.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="sourceIdentification" type="npra:String">
-            <xs:annotation>
-              <xs:documentation>Identifier of the organisation or the traffic equipment which has produced the information relating to this version of the information.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="sourceName" type="npra:MultilingualStringPropertyType">
-            <xs:annotation>
-              <xs:documentation>The name of the organisation which has produced the information relating to this version of the information.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="sourceType" type="npra:SourceTypeEnum">
-            <xs:annotation>
-              <xs:documentation>Information about the technology used for measuring the data or the method used for obtaining qualitative descriptions relating to this version of the information.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="reliable" type="npra:Boolean">
-            <xs:annotation>
-              <xs:documentation>An indication as to whether the source deems the associated information to be reliable/correct. &quot;True&quot; indicates it is deemed reliable.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element minOccurs="0" name="sourceExtension" type="npra:_ExtensionTypePropertyType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="SourcePropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:Source"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="Source" substitutionGroup="gml:AbstractFeature" type="npra:SourceType"/>
+  <xs:element name="CctvCameraNonDwellZone" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:CctvCameraNonDwellZoneType"/>
   <xs:complexType name="OpenlrLineAttributesType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -224,38 +155,38 @@
           <xs:documentation>Line attributes are part of a location reference point and consists of functional road class (FRC),form of way (FOW) and bearing (BEAR) data.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="openlrFunctionalRoadClass" type="npra:OpenlrFunctionalRoadClassEnum">
+          <xs:element maxOccurs="1" minOccurs="1" name="openlrFunctionalRoadClass" type="D2LogicalModel:OpenlrFunctionalRoadClassEnum">
             <xs:annotation>
               <xs:documentation>The functional road class (FRC) can hold eight different values as described in the logical format.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="openlrFormOfWay" type="npra:OpenlrFormOfWayEnum">
+          <xs:element maxOccurs="1" minOccurs="1" name="openlrFormOfWay" type="D2LogicalModel:OpenlrFormOfWayEnum">
             <xs:annotation>
               <xs:documentation>The form of way (FOW) can hold eight different values as described in the logical format.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="openlrBearing" type="npra:AngleInDegrees">
+          <xs:element maxOccurs="1" minOccurs="1" name="openlrBearing" type="D2LogicalModel:AngleInDegrees">
             <xs:annotation>
               <xs:documentation>defines the bearing field as an integer value between 0 and 360 whereby “0” is included and “360” is excluded from that range.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="openlrLineAttributesExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="openlrLineAttributesExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="OpenlrLineAttributesPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:OpenlrLineAttributes"/>
+      <xs:element ref="D2LogicalModel:OpenlrLineAttributes"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="OpenlrLineAttributes" substitutionGroup="gml:AbstractFeature" type="npra:OpenlrLineAttributesType"/>
+  <xs:element name="OpenlrLineAttributes" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:OpenlrLineAttributesType"/>
   <xs:complexType name="_PeriodExtensionTypeType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
         <xs:sequence>
-          <xs:element minOccurs="0" name="periodExtended" type="npra:PeriodExtendedPropertyType"/>
+          <xs:element minOccurs="0" name="periodExtended" type="D2LogicalModel:PeriodExtendedPropertyType"/>
           <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
         </xs:sequence>
       </xs:extension>
@@ -263,11 +194,11 @@
   </xs:complexType>
   <xs:complexType name="_PeriodExtensionTypePropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:_PeriodExtensionType"/>
+      <xs:element ref="D2LogicalModel:_PeriodExtensionType"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="_PeriodExtensionType" substitutionGroup="gml:AbstractFeature" type="npra:_PeriodExtensionTypeType"/>
+  <xs:element name="_PeriodExtensionType" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:_PeriodExtensionTypeType"/>
   <xs:complexType name="PublicHolidayType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -275,77 +206,88 @@
           <xs:documentation>Specification of the public holiday type in a specific country or region. Use this component only when specialDayType is set to 'publicHoliday' or 'holidays'.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="country" type="npra:CountryEnum">
+          <xs:element maxOccurs="1" minOccurs="1" name="country" type="D2LogicalModel:CountryEnum">
             <xs:annotation>
               <xs:documentation>ISO 3166-1 two character country code.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="countrySubdivision" type="npra:String">
+          <xs:element maxOccurs="1" minOccurs="0" name="countrySubdivision" type="D2LogicalModel:String">
             <xs:annotation>
               <xs:documentation>ISO 3166-2 country sub-division code (up to 3 characters).</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="region" type="npra:MultilingualStringPropertyType">
+          <xs:element maxOccurs="1" minOccurs="0" name="region" type="D2LogicalModel:MultilingualStringPropertyType">
             <xs:annotation>
               <xs:documentation>Region of country (e.g. &quot;Scotland&quot;, &quot;Wales&quot; etc. if country = GB) </xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="publicHolidayType" type="npra:PublicHolidayTypeEnum">
+          <xs:element maxOccurs="1" minOccurs="1" name="publicHolidayType" type="D2LogicalModel:PublicHolidayTypeEnum">
             <xs:annotation>
               <xs:documentation>Specifies the public holiday type for the country or region.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="publicHolidayName" type="npra:MultilingualStringPropertyType">
+          <xs:element maxOccurs="1" minOccurs="0" name="publicHolidayName" type="D2LogicalModel:MultilingualStringPropertyType">
             <xs:annotation>
               <xs:documentation>Specification of public holiday, if the enumeration values do not fit.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="publicHolidayExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="publicHolidayExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="PublicHolidayPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:PublicHoliday"/>
+      <xs:element ref="D2LogicalModel:PublicHoliday"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="PublicHoliday" substitutionGroup="gml:AbstractFeature" type="npra:PublicHolidayType"/>
-  <xs:complexType name="DayWeekMonthType">
+  <xs:element name="PublicHoliday" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:PublicHolidayType"/>
+  <xs:complexType name="CctvCameraControlLimitsType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
         <xs:annotation>
-          <xs:documentation>Specification of periods defined by the intersection of days, weeks and months.</xs:documentation>
+          <xs:documentation>Limits imposed on the control of the CCTV camera.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="7" minOccurs="0" name="applicableDay" type="npra:DayEnum">
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvEndStopMinPanValue" type="D2LogicalModel:NonNegativeInteger">
             <xs:annotation>
-              <xs:documentation>Applicable day of the week. &quot;All days of the week&quot; is expressed by non-inclusion of this attribute.</xs:documentation>
+              <xs:documentation>The pan value for the CCTV camera at its minimum pan end stop. </xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="5" minOccurs="0" name="applicableWeek" type="npra:WeekOfMonthEnum">
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvEndStopMaxPanValue" type="D2LogicalModel:NonNegativeInteger">
             <xs:annotation>
-              <xs:documentation>Applicable week of the month (1 to 5).  &quot;All weeks of the month&quot; is expressed by non-inclusion of this attribute.</xs:documentation>
+              <xs:documentation>The pan value for the CCTV camera at its maximum pan end stop. </xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="12" minOccurs="0" name="applicableMonth" type="npra:MonthOfYearEnum">
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvEndStopMinTiltValue" type="D2LogicalModel:NonNegativeInteger">
             <xs:annotation>
-              <xs:documentation>Applicable month of the year.  &quot;All months of the year&quot; is expressed by non-inclusion of this attribute.</xs:documentation>
+              <xs:documentation>The tilt value for the CCTV camera at its minimum tilt end stop. </xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="dayWeekMonthExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvEndStopMaxTiltValue" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The tilt value for the CCTV camera at its maximum tilt end stop. </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvMaxZoomValue" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The zoom value for the CCTV camera at its maximum zoom setting. </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="cctvCameraNonDwellZone" type="D2LogicalModel:CctvCameraNonDwellZonePropertyType"/>
+          <xs:element minOccurs="0" name="cctvCameraControlLimitsExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="DayWeekMonthPropertyType">
+  <xs:complexType name="CctvCameraControlLimitsPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:DayWeekMonth"/>
+      <xs:element ref="D2LogicalModel:CctvCameraControlLimits"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="DayWeekMonth" substitutionGroup="gml:AbstractFeature" type="npra:DayWeekMonthType"/>
+  <xs:element name="CctvCameraControlLimits" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:CctvCameraControlLimitsType"/>
   <xs:complexType name="PointCoordinatesType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -353,45 +295,28 @@
           <xs:documentation>A pair of coordinates defining the geodetic position of a single point using the European Terrestrial Reference System 1989 (ETRS89).</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="latitude" type="npra:Float">
+          <xs:element maxOccurs="1" minOccurs="1" name="latitude" type="D2LogicalModel:Float">
             <xs:annotation>
               <xs:documentation>Latitude in decimal degrees using the European Terrestrial Reference System 1989 (ETRS89).</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="longitude" type="npra:Float">
+          <xs:element maxOccurs="1" minOccurs="1" name="longitude" type="D2LogicalModel:Float">
             <xs:annotation>
               <xs:documentation>Longitude in decimal degrees using the European Terrestrial Reference System 1989 (ETRS89).</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="pointCoordinatesExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="pointCoordinatesExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="PointCoordinatesPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:PointCoordinates"/>
+      <xs:element ref="D2LogicalModel:PointCoordinates"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="PointCoordinates" substitutionGroup="gml:AbstractFeature" type="npra:PointCoordinatesType"/>
-  <xs:complexType name="VersionedReferenceType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="id" type="xs:string"/>
-          <xs:element minOccurs="0" name="version" type="xs:string"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="VersionedReferencePropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:VersionedReference"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="VersionedReference" substitutionGroup="gml:AbstractFeature" type="npra:VersionedReferenceType"/>
+  <xs:element name="PointCoordinates" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:PointCoordinatesType"/>
   <xs:complexType name="SpecialDayType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -399,34 +324,34 @@
           <xs:documentation>Specification of a special day, for example schoolDay, electionDay, ...  Gives also the possibility to define a public holiday (country specific).</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="intersectWithApplicableDays" type="npra:Boolean">
+          <xs:element maxOccurs="1" minOccurs="1" name="intersectWithApplicableDays" type="D2LogicalModel:Boolean">
             <xs:annotation>
               <xs:documentation>When true, the period is the intersection of applicable days and this special day. When false, the period is the union of applicable days and this special day.”</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="specialDayType" type="npra:SpecialDayTypeEnum">
+          <xs:element maxOccurs="1" minOccurs="1" name="specialDayType" type="D2LogicalModel:SpecialDayTypeEnum">
             <xs:annotation>
               <xs:documentation>Specification of a special day, for example schoolDay, electionDay, ..  .</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="specialDayName" type="npra:MultilingualStringPropertyType">
+          <xs:element maxOccurs="1" minOccurs="0" name="specialDayName" type="D2LogicalModel:MultilingualStringPropertyType">
             <xs:annotation>
               <xs:documentation>Specification of a special day, if the enumeration values do not fit.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="publicHoliday" type="npra:PublicHolidayPropertyType"/>
-          <xs:element minOccurs="0" name="specialDayExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="publicHoliday" type="D2LogicalModel:PublicHolidayPropertyType"/>
+          <xs:element minOccurs="0" name="specialDayExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="SpecialDayPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:SpecialDay"/>
+      <xs:element ref="D2LogicalModel:SpecialDay"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="SpecialDay" substitutionGroup="gml:AbstractFeature" type="npra:SpecialDayType"/>
+  <xs:element name="SpecialDay" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:SpecialDayType"/>
   <xs:complexType name="CauseType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -434,57 +359,18 @@
           <xs:documentation>Contains details of the cause of a record within a situation</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element minOccurs="0" name="causeExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="causeExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="CausePropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:Cause"/>
+      <xs:element ref="D2LogicalModel:Cause"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="Cause" substitutionGroup="gml:AbstractFeature" type="npra:CauseType"/>
-  <xs:complexType name="OverallPeriodType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:annotation>
-          <xs:documentation>A continuous or discontinuous period of validity defined by overall bounding start and end times and the possible intersection of valid periods (potentially recurring) with the complement of exception periods (also potentially recurring).</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="overallStartTime" type="npra:DateTime">
-            <xs:annotation>
-              <xs:documentation>Start of bounding period of validity defined by date and time.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="overallEndTime" type="npra:DateTime">
-            <xs:annotation>
-              <xs:documentation>End of bounding period of validity defined by date and time.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="validPeriod" type="npra:PeriodPropertyType">
-            <xs:annotation>
-              <xs:documentation>A single time period, a recurring time period or a set of different recurring time periods during which validity is true.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="exceptionPeriod" type="npra:PeriodPropertyType">
-            <xs:annotation>
-              <xs:documentation>A single time period, a recurring time period or a set of different recurring time periods during which validity is false.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element minOccurs="0" name="overallPeriodExtension" type="npra:_ExtensionTypePropertyType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="OverallPeriodPropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:OverallPeriod"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="OverallPeriod" substitutionGroup="gml:AbstractFeature" type="npra:OverallPeriodType"/>
+  <xs:element name="Cause" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:CauseType"/>
   <xs:complexType name="FilterExitManagementType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -492,28 +378,28 @@
           <xs:documentation>Filter indicators management information.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="filterEnd" type="npra:Boolean">
+          <xs:element maxOccurs="1" minOccurs="1" name="filterEnd" type="D2LogicalModel:Boolean">
             <xs:annotation>
               <xs:documentation>This attribute, set to true, indicates that the filter, for which a previous record version has been published, becomes inactive.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="filterOutOfRange" type="npra:Boolean">
+          <xs:element maxOccurs="1" minOccurs="1" name="filterOutOfRange" type="D2LogicalModel:Boolean">
             <xs:annotation>
               <xs:documentation>This attribute is set to true when a previous version of this record has been published and now, for this new record version, the record goes out of the filter range.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="filterExitManagementExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="filterExitManagementExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="FilterExitManagementPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:FilterExitManagement"/>
+      <xs:element ref="D2LogicalModel:FilterExitManagement"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="FilterExitManagement" substitutionGroup="gml:AbstractFeature" type="npra:FilterExitManagementType"/>
+  <xs:element name="FilterExitManagement" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:FilterExitManagementType"/>
   <xs:complexType name="HeaderInformationType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -521,77 +407,71 @@
           <xs:documentation>Management information relating to the data contained within a publication.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="0" name="areaOfInterest" type="npra:AreaOfInterestEnum">
+          <xs:element maxOccurs="1" minOccurs="0" name="areaOfInterest" type="D2LogicalModel:AreaOfInterestEnum">
             <xs:annotation>
               <xs:documentation>The extent of the geographic area to which the related information should be distributed.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="confidentiality" type="npra:ConfidentialityValueEnum">
+          <xs:element maxOccurs="1" minOccurs="1" name="confidentiality" type="D2LogicalModel:ConfidentialityValueEnum">
             <xs:annotation>
               <xs:documentation>The extent to which the related information may be circulated, according to the recipient type. Recipients must comply with this confidentiality statement.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="informationStatus" type="npra:InformationStatusEnum">
+          <xs:element maxOccurs="1" minOccurs="1" name="informationStatus" type="D2LogicalModel:InformationStatusEnum">
             <xs:annotation>
               <xs:documentation>The status of the related information (real, test, exercise ....).</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="urgency" type="npra:UrgencyEnum">
+          <xs:element maxOccurs="1" minOccurs="0" name="urgency" type="D2LogicalModel:UrgencyEnum">
             <xs:annotation>
               <xs:documentation>This indicates the urgency with which a message recipient or Client should distribute the enclosed information.  Urgency particularly relates to functions within RDS-TMC applications.  </xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="headerInformationExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="headerInformationExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="HeaderInformationPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:HeaderInformation"/>
+      <xs:element ref="D2LogicalModel:HeaderInformation"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="HeaderInformation" substitutionGroup="gml:AbstractFeature" type="npra:HeaderInformationType"/>
-  <xs:complexType name="OpenlrLineLocationReferenceType">
+  <xs:element name="HeaderInformation" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:HeaderInformationType"/>
+  <xs:complexType name="LocationExtensionType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
         <xs:annotation>
-          <xs:documentation>A LineLocationReference is defined by an ordered sequence of location reference points and a terminating last location reference point.</xs:documentation>
+          <xs:documentation>Extension of the Location class</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="unbounded" name="openlrLocationReferencePoint" type="npra:OpenlrLocationReferencePointPropertyType"/>
-          <xs:element name="openlrLastLocationReferencePoint" type="npra:OpenlrLastLocationReferencePointPropertyType"/>
-          <xs:element minOccurs="0" name="openlrOffsets" type="npra:OpenlrOffsetsPropertyType"/>
-          <xs:element minOccurs="0" name="openlrLineLocationReferenceExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="roadNumber" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>Identifier/number of the road of which the linear element forms a part.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="countyNumber" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>County number</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="municipalityNumber" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>Municipality number</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="OpenlrLineLocationReferencePropertyType">
+  <xs:complexType name="LocationExtensionPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:OpenlrLineLocationReference"/>
+      <xs:element ref="D2LogicalModel:LocationExtension"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="OpenlrLineLocationReference" substitutionGroup="gml:AbstractFeature" type="npra:OpenlrLineLocationReferenceType"/>
-  <xs:complexType name="_SituationRecordExtensionTypeType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="situationRecordExtendedApproved" type="npra:SituationRecordExtendedApprovedPropertyType"/>
-          <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="_SituationRecordExtensionTypePropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:_SituationRecordExtensionType"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="_SituationRecordExtensionType" substitutionGroup="gml:AbstractFeature" type="npra:_SituationRecordExtensionTypeType"/>
+  <xs:element name="LocationExtension" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:LocationExtensionType"/>
   <xs:complexType name="ImpactType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -599,120 +479,49 @@
           <xs:documentation>An assessment of the impact that an event or operator action defined by the situation record has on the driving conditions.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="0" name="capacityRemaining" type="npra:Percentage">
+          <xs:element maxOccurs="1" minOccurs="0" name="capacityRemaining" type="D2LogicalModel:Percentage">
             <xs:annotation>
               <xs:documentation>The ratio of current capacity to the normal (free flow) road capacity in the defined direction, expressed as a percentage. Capacity is the maximum number of vehicles that can pass a specified point on the road, in unit time given the specified conditions.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="numberOfLanesRestricted" type="npra:NonNegativeInteger">
+          <xs:element maxOccurs="1" minOccurs="0" name="numberOfLanesRestricted" type="D2LogicalModel:NonNegativeInteger">
             <xs:annotation>
               <xs:documentation>The number of normally usable lanes on the carriageway which are now restricted either fully or partially (this may include the hard shoulder if it is normally available for operational use, e.g. in hard shoulder running schemes).</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="numberOfOperationalLanes" type="npra:NonNegativeInteger">
+          <xs:element maxOccurs="1" minOccurs="0" name="numberOfOperationalLanes" type="D2LogicalModel:NonNegativeInteger">
             <xs:annotation>
               <xs:documentation>The number of usable lanes in the specified direction which remain fully operational (this may include the hard shoulder if it is being used as an operational lane).</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="originalNumberOfLanes" type="npra:NonNegativeInteger">
+          <xs:element maxOccurs="1" minOccurs="0" name="originalNumberOfLanes" type="D2LogicalModel:NonNegativeInteger">
             <xs:annotation>
               <xs:documentation>The normal number of usable lanes in the specified direction that the carriageway has before reduction due to roadworks or traffic events.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="residualRoadWidth" type="npra:MetresAsFloat">
+          <xs:element maxOccurs="1" minOccurs="0" name="residualRoadWidth" type="D2LogicalModel:MetresAsFloat">
             <xs:annotation>
               <xs:documentation>The total width of the combined operational lanes in the specified direction.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="trafficConstrictionType" type="npra:TrafficConstrictionTypeEnum">
+          <xs:element maxOccurs="1" minOccurs="0" name="trafficConstrictionType" type="D2LogicalModel:TrafficConstrictionTypeEnum">
             <xs:annotation>
               <xs:documentation>The type of constriction to which traffic is subjected as a result of an event or operator action.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="delays" type="npra:DelaysPropertyType"/>
-          <xs:element minOccurs="0" name="impactExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="delays" type="D2LogicalModel:DelaysPropertyType"/>
+          <xs:element minOccurs="0" name="impactExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="ImpactPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:Impact"/>
+      <xs:element ref="D2LogicalModel:Impact"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="Impact" substitutionGroup="gml:AbstractFeature" type="npra:ImpactType"/>
-  <xs:complexType name="_ExtensionTypeType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:sequence>
-          <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##any" processContents="lax"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="_ExtensionTypePropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:_ExtensionType"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="_ExtensionType" substitutionGroup="gml:AbstractFeature" type="npra:_ExtensionTypeType"/>
-  <xs:complexType name="CommentType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:annotation>
-          <xs:documentation>A free text comment with an optional date/time stamp that can be used by the operator to convey un-coded observations/information.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="comment" type="npra:MultilingualStringPropertyType">
-            <xs:annotation>
-              <xs:documentation>A free text comment that can be used by the operator to convey un-coded observations/information.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="commentDateTime" type="npra:DateTime">
-            <xs:annotation>
-              <xs:documentation>The date/time at which the comment was made.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="commentType" type="npra:CommentTypeEnum">
-            <xs:annotation>
-              <xs:documentation>A classification of the the type of comment.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element minOccurs="0" name="commentExtension" type="npra:_ExtensionTypePropertyType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="CommentPropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:Comment"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="Comment" substitutionGroup="gml:AbstractFeature" type="npra:CommentType"/>
-  <xs:complexType name="OpenlrBaseLocationReferencePointType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:annotation>
-          <xs:documentation>Base class used to hold data about a reference point.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element name="openlrCoordinate" type="npra:PointCoordinatesPropertyType"/>
-          <xs:element name="openlrLineAttributes" type="npra:OpenlrLineAttributesPropertyType"/>
-          <xs:element minOccurs="0" name="openlrBaseLocationReferencePointExtension" type="npra:_ExtensionTypePropertyType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="OpenlrBaseLocationReferencePointPropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:OpenlrBaseLocationReferencePoint"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="OpenlrBaseLocationReferencePoint" substitutionGroup="gml:AbstractFeature" type="npra:OpenlrBaseLocationReferencePointType"/>
+  <xs:element name="Impact" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:ImpactType"/>
   <xs:complexType name="OpenlrExtendedLinearType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -720,12 +529,12 @@
           <xs:documentation>Extension class for OpenLR Line location reference</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element name="firstDirection" type="npra:OpenlrLineLocationReferencePropertyType">
+          <xs:element name="firstDirection" type="D2LogicalModel:OpenlrLineLocationReferencePropertyType">
             <xs:annotation>
               <xs:documentation>First OpenLR reference in first/main direction.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="oppositeDirection" type="npra:OpenlrLineLocationReferencePropertyType">
+          <xs:element minOccurs="0" name="oppositeDirection" type="D2LogicalModel:OpenlrLineLocationReferencePropertyType">
             <xs:annotation>
               <xs:documentation>If both direction, this is tha reference in the opposite direction against firstDirection.</xs:documentation>
             </xs:annotation>
@@ -736,11 +545,11 @@
   </xs:complexType>
   <xs:complexType name="OpenlrExtendedLinearPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:OpenlrExtendedLinear"/>
+      <xs:element ref="D2LogicalModel:OpenlrExtendedLinear"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="OpenlrExtendedLinear" substitutionGroup="gml:AbstractFeature" type="npra:OpenlrExtendedLinearType"/>
+  <xs:element name="OpenlrExtendedLinear" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:OpenlrExtendedLinearType"/>
   <xs:complexType name="SituationRecordType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -748,64 +557,64 @@
           <xs:documentation>An identifiable versioned instance of a single record/element within a situation.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="0" name="situationRecordCreationReference" type="npra:String">
+          <xs:element maxOccurs="1" minOccurs="0" name="situationRecordCreationReference" type="D2LogicalModel:String">
             <xs:annotation>
               <xs:documentation>A unique alphanumeric reference (either an external reference or GUID) of the SituationRecord object (the first version of the record) that was created by the original supplier.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="situationRecordCreationTime" type="npra:DateTime">
+          <xs:element maxOccurs="1" minOccurs="1" name="situationRecordCreationTime" type="D2LogicalModel:DateTime">
             <xs:annotation>
               <xs:documentation>The date/time that the SituationRecord object (the first version of the record) was created by the original supplier.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="situationRecordObservationTime" type="npra:DateTime">
+          <xs:element maxOccurs="1" minOccurs="0" name="situationRecordObservationTime" type="D2LogicalModel:DateTime">
             <xs:annotation>
               <xs:documentation>The date/time that the information represented by the current version of the SituationRecord was observed by the original (potentially external) source of the information.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="situationRecordVersionTime" type="npra:DateTime">
+          <xs:element maxOccurs="1" minOccurs="1" name="situationRecordVersionTime" type="D2LogicalModel:DateTime">
             <xs:annotation>
               <xs:documentation>The date/time that this current version of the SituationRecord within the situation was written into the database of the supplier which is involved in the data exchange. Identity and version of record are defined by the class stereotype implementation.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="situationRecordFirstSupplierVersionTime" type="npra:DateTime">
+          <xs:element maxOccurs="1" minOccurs="0" name="situationRecordFirstSupplierVersionTime" type="D2LogicalModel:DateTime">
             <xs:annotation>
               <xs:documentation>The date/time that the current version of the Situation Record was written into the database of the original supplier in the supply chain.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="confidentialityOverride" type="npra:ConfidentialityValueEnum">
+          <xs:element maxOccurs="1" minOccurs="0" name="confidentialityOverride" type="D2LogicalModel:ConfidentialityValueEnum">
             <xs:annotation>
               <xs:documentation>The extent to which the related information may be circulated, according to the recipient type. Recipients must comply with this confidentiality statement. This overrides any confidentiality defined for the situation as a whole in the header information.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="1" name="probabilityOfOccurrence" type="npra:ProbabilityOfOccurrenceEnum">
+          <xs:element maxOccurs="1" minOccurs="1" name="probabilityOfOccurrence" type="D2LogicalModel:ProbabilityOfOccurrenceEnum">
             <xs:annotation>
               <xs:documentation>An assessment of the degree of likelihood that the reported event will occur.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="severity" type="npra:SeverityEnum">
+          <xs:element maxOccurs="1" minOccurs="0" name="severity" type="D2LogicalModel:SeverityEnum">
             <xs:annotation>
               <xs:documentation>The assessment of the impact (in terms of severity) that this element of the situation is having, or will have, on the traffic flow as perceived by the supplier.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="source" type="npra:SourcePropertyType"/>
-          <xs:element name="validity" type="npra:ValidityPropertyType"/>
-          <xs:element minOccurs="0" name="impact" type="npra:ImpactPropertyType"/>
-          <xs:element minOccurs="0" name="cause" type="npra:CausePropertyType"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="generalPublicComment" type="npra:CommentPropertyType">
+          <xs:element minOccurs="0" name="source" type="D2LogicalModel:SourcePropertyType"/>
+          <xs:element name="validity" type="D2LogicalModel:ValidityPropertyType"/>
+          <xs:element minOccurs="0" name="impact" type="D2LogicalModel:ImpactPropertyType"/>
+          <xs:element minOccurs="0" name="cause" type="D2LogicalModel:CausePropertyType"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="generalPublicComment" type="D2LogicalModel:CommentPropertyType">
             <xs:annotation>
               <xs:documentation>A comment which may be freely distributed to the general public</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="nonGeneralPublicComment" type="npra:CommentPropertyType">
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="nonGeneralPublicComment" type="D2LogicalModel:CommentPropertyType">
             <xs:annotation>
               <xs:documentation>A comment which should not be distributed to the general public.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="urlLink" type="npra:UrlLinkPropertyType"/>
-          <xs:element name="groupOfLocations" type="npra:GroupOfLocationsLinearPropertyType"/>
-          <xs:element minOccurs="0" name="management" type="npra:ManagementPropertyType"/>
-          <xs:element minOccurs="0" name="situationRecordExtension" type="npra:_SituationRecordExtensionTypePropertyType"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="urlLink" type="D2LogicalModel:UrlLinkPropertyType"/>
+          <xs:element name="groupOfLocations" type="D2LogicalModel:GroupOfLocationsLinearPropertyType"/>
+          <xs:element minOccurs="0" name="management" type="D2LogicalModel:ManagementPropertyType"/>
+          <xs:element minOccurs="0" name="situationRecordExtension" type="D2LogicalModel:_SituationRecordExtensionTypePropertyType"/>
           <xs:element minOccurs="0" name="id" type="xs:string"/>
           <xs:element minOccurs="0" name="version" type="xs:string"/>
         </xs:sequence>
@@ -814,11 +623,11 @@
   </xs:complexType>
   <xs:complexType name="SituationRecordPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:SituationRecord"/>
+      <xs:element ref="D2LogicalModel:SituationRecord"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="SituationRecord" substitutionGroup="gml:AbstractFeature" type="npra:SituationRecordType"/>
+  <xs:element name="SituationRecord" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:SituationRecordType"/>
   <xs:complexType name="PeriodType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -826,46 +635,75 @@
           <xs:documentation>A continuous time period or a set of discontinuous time periods defined by the intersection of a set of criteria all within an overall delimiting interval.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="0" name="startOfPeriod" type="npra:DateTime">
+          <xs:element maxOccurs="1" minOccurs="0" name="startOfPeriod" type="D2LogicalModel:DateTime">
             <xs:annotation>
               <xs:documentation>Start of period.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="endOfPeriod" type="npra:DateTime">
+          <xs:element maxOccurs="1" minOccurs="0" name="endOfPeriod" type="D2LogicalModel:DateTime">
             <xs:annotation>
               <xs:documentation>End of a period.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="periodName" type="npra:MultilingualStringPropertyType">
+          <xs:element maxOccurs="1" minOccurs="0" name="periodName" type="D2LogicalModel:MultilingualStringPropertyType">
             <xs:annotation>
               <xs:documentation>The name of the period.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="recurringTimePeriodOfDay" type="npra:TimePeriodOfDayPropertyType">
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="recurringTimePeriodOfDay" type="D2LogicalModel:TimePeriodOfDayPropertyType">
             <xs:annotation>
               <xs:documentation>A recurring period of a day.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="recurringDayWeekMonthPeriod" type="npra:DayWeekMonthPropertyType">
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="recurringDayWeekMonthPeriod" type="D2LogicalModel:DayWeekMonthPropertyType">
             <xs:annotation>
               <xs:documentation>A recurring period defined in terms of days of the week, weeks of the month and months of the year. </xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="periodExtension" type="npra:_PeriodExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="periodExtension" type="D2LogicalModel:_PeriodExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="PeriodPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:Period"/>
+      <xs:element ref="D2LogicalModel:Period"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="Period" substitutionGroup="gml:AbstractFeature" type="npra:PeriodType"/>
+  <xs:element name="Period" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:PeriodType"/>
+  <xs:complexType name="CctvCameraPresetsType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Reference to a set of preset values for the CCTV camera,normally maintained by the base station,each corresponding to a defined pointing direction and zoom level which may be selectable by a controlling client.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvCameraPresetIdentification" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>The identity of the set of preset CCTV camera values.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvCameraPresetName" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>The name of the set of preset CCTV camera values.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="cctvCameraPresetsExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CctvCameraPresetsPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:CctvCameraPresets"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="CctvCameraPresets" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:CctvCameraPresetsType"/>
   <xs:complexType name="_SituationVersionedReferenceType">
     <xs:complexContent>
-      <xs:extension base="npra:VersionedReference">
+      <xs:extension base="D2LogicalModel:VersionedReference">
         <xs:sequence>
           <xs:element minOccurs="0" name="targetClass" type=""/>
         </xs:sequence>
@@ -874,58 +712,34 @@
   </xs:complexType>
   <xs:complexType name="_SituationVersionedReferencePropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:_SituationVersionedReference"/>
+      <xs:element ref="D2LogicalModel:_SituationVersionedReference"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="_SituationVersionedReference" substitutionGroup="gml:AbstractFeature" type="npra:_SituationVersionedReferenceType"/>
-  <xs:complexType name="MultilingualStringValueType">
+  <xs:element name="_SituationVersionedReference" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:_SituationVersionedReferenceType"/>
+  <xs:complexType name="_LocationExtensionTypeType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
-        <xs:simpleContent>
-          <xs:extension base="npra:MultilingualStringSimpleValueType">
-            <xs:sequence>
-              <xs:element minOccurs="0" name="lang" type="xs:language"/>
-            </xs:sequence>
-          </xs:extension>
-        </xs:simpleContent>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="MultilingualStringValuePropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:MultilingualStringValue"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="MultilingualStringValue" substitutionGroup="gml:AbstractFeature" type="npra:MultilingualStringValueType"/>
-  <xs:complexType name="ManagementType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:annotation>
-          <xs:documentation>Information relating to the management of the situation record.</xs:documentation>
-        </xs:annotation>
         <xs:sequence>
-          <xs:element minOccurs="0" name="lifeCycleManagement" type="npra:LifeCycleManagementPropertyType"/>
-          <xs:element minOccurs="0" name="filterExitManagement" type="npra:FilterExitManagementPropertyType"/>
-          <xs:element minOccurs="0" name="managementExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="locationExtension" type="D2LogicalModel:LocationExtensionPropertyType"/>
+          <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ManagementPropertyType">
+  <xs:complexType name="_LocationExtensionTypePropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:Management"/>
+      <xs:element ref="D2LogicalModel:_LocationExtensionType"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="Management" substitutionGroup="gml:AbstractFeature" type="npra:ManagementType"/>
+  <xs:element name="_LocationExtensionType" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:_LocationExtensionTypeType"/>
   <xs:complexType name="_LinearExtensionTypeType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
         <xs:sequence>
-          <xs:element minOccurs="0" name="openlrExtendedLinear" type="npra:OpenlrExtendedLinearPropertyType"/>
-          <xs:element minOccurs="0" name="linearLineStringExtension" type="npra:LinearLineStringExtensionPropertyType"/>
+          <xs:element minOccurs="0" name="openlrExtendedLinear" type="D2LogicalModel:OpenlrExtendedLinearPropertyType"/>
+          <xs:element minOccurs="0" name="linearLineStringExtension" type="D2LogicalModel:LinearLineStringExtensionPropertyType"/>
           <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
         </xs:sequence>
       </xs:extension>
@@ -933,45 +747,45 @@
   </xs:complexType>
   <xs:complexType name="_LinearExtensionTypePropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:_LinearExtensionType"/>
+      <xs:element ref="D2LogicalModel:_LinearExtensionType"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="_LinearExtensionType" substitutionGroup="gml:AbstractFeature" type="npra:_LinearExtensionTypeType"/>
-  <xs:complexType name="ValidityType">
+  <xs:element name="_LinearExtensionType" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:_LinearExtensionTypeType"/>
+  <xs:complexType name="CctvCameraTrueNorthPositionType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
         <xs:annotation>
-          <xs:documentation>Specification of validity, either explicitly or by a validity time period specification which may be discontinuous.</xs:documentation>
+          <xs:documentation>The pan,tilt and zoom values for the CCTV camera when pointing true north.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="validityStatus" type="npra:ValidityStatusEnum">
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvNorthPanValue" type="D2LogicalModel:NonNegativeInteger">
             <xs:annotation>
-              <xs:documentation>Specification of validity, either explicitly overriding the validity time specification or confirming it.</xs:documentation>
+              <xs:documentation>The pan value for the CCTV camera when pointing true north represented as a 2 byte value.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="overrunning" type="npra:Boolean">
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvNorthTiltValue" type="D2LogicalModel:NonNegativeInteger">
             <xs:annotation>
-              <xs:documentation>The activity or action described by the SituationRecord is still in progress, overrunning its planned duration as indicated in a previous version of this record.</xs:documentation>
+              <xs:documentation>The tilt value for the CCTV camera when pointing true north represented as a 2 byte value.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="validityTimeSpecification" type="npra:OverallPeriodPropertyType">
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvNorthZoomValue" type="D2LogicalModel:NonNegativeInteger">
             <xs:annotation>
-              <xs:documentation>A specification of periods of validity defined by overall bounding start and end times and the possible intersection of valid periods with exception periods (exception periods overriding valid periods).</xs:documentation>
+              <xs:documentation>The zoom value for the CCTV camera when pointing true north represented as a 2 byte value.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="validityExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="cctvCameraTrueNorthPositionExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ValidityPropertyType">
+  <xs:complexType name="CctvCameraTrueNorthPositionPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:Validity"/>
+      <xs:element ref="D2LogicalModel:CctvCameraTrueNorthPosition"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="Validity" substitutionGroup="gml:AbstractFeature" type="npra:ValidityType"/>
+  <xs:element name="CctvCameraTrueNorthPosition" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:CctvCameraTrueNorthPositionType"/>
   <xs:complexType name="GMLLineStringType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -979,24 +793,24 @@
           <xs:documentation>GML LineString compatible with GML 2.x</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="coordinates" type="npra:LongString">
+          <xs:element maxOccurs="1" minOccurs="1" name="coordinates" type="D2LogicalModel:LongString">
             <xs:annotation>
               <xs:documentation>Contains coordinates</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="gmlLineStringExtension" type="npra:_ExtensionTypePropertyType"/>
-          <xs:element minOccurs="0" name="srsName" type="npra:String"/>
+          <xs:element minOccurs="0" name="gmlLineStringExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="srsName" type="D2LogicalModel:String"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="GMLLineStringPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:GMLLineString"/>
+      <xs:element ref="D2LogicalModel:GMLLineString"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="GMLLineString" substitutionGroup="gml:AbstractFeature" type="npra:GMLLineStringType"/>
+  <xs:element name="GMLLineString" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:GMLLineStringType"/>
   <xs:complexType name="GroupOfLocationsType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -1004,18 +818,18 @@
           <xs:documentation>One or more physically separate locations. Multiple locations may be related, as in an itinerary (or route), or may be unrelated. It is not for identifying the same physical location using different Location objects for different referencing systems.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element minOccurs="0" name="groupOfLocationsExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="groupOfLocationsExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="GroupOfLocationsPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:GroupOfLocations"/>
+      <xs:element ref="D2LogicalModel:GroupOfLocations"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="GroupOfLocations" substitutionGroup="gml:AbstractFeature" type="npra:GroupOfLocationsType"/>
+  <xs:element name="GroupOfLocations" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:GroupOfLocationsType"/>
   <xs:complexType name="OpenlrOffsetsType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -1023,51 +837,28 @@
           <xs:documentation>Offsets are used to locate the start and end of a location more precisely than bounding to the nodes in a network.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="0" name="openlrPositiveOffset" type="npra:MetresAsNonNegativeInteger">
+          <xs:element maxOccurs="1" minOccurs="0" name="openlrPositiveOffset" type="D2LogicalModel:MetresAsNonNegativeInteger">
             <xs:annotation>
               <xs:documentation>The positive offset along the line of the location.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="openlrNegativeOffset" type="npra:MetresAsNonNegativeInteger">
+          <xs:element maxOccurs="1" minOccurs="0" name="openlrNegativeOffset" type="D2LogicalModel:MetresAsNonNegativeInteger">
             <xs:annotation>
               <xs:documentation>The negative offset along the line of the location.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="openlrOffsetsExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="openlrOffsetsExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="OpenlrOffsetsPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:OpenlrOffsets"/>
+      <xs:element ref="D2LogicalModel:OpenlrOffsets"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="OpenlrOffsets" substitutionGroup="gml:AbstractFeature" type="npra:OpenlrOffsetsType"/>
-  <xs:complexType name="PeriodExtendedType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:annotation>
-          <xs:documentation>An extension point for Period offering the possibility to describe special days and public holidays.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="recurringSpecialDay" type="npra:SpecialDayPropertyType">
-            <xs:annotation>
-              <xs:documentation>A recurring period in terms of special days.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="PeriodExtendedPropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:PeriodExtended"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="PeriodExtended" substitutionGroup="gml:AbstractFeature" type="npra:PeriodExtendedType"/>
+  <xs:element name="OpenlrOffsets" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:OpenlrOffsetsType"/>
   <xs:complexType name="LinearLineStringExtensionType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -1082,65 +873,11 @@
   </xs:complexType>
   <xs:complexType name="LinearLineStringExtensionPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:LinearLineStringExtension"/>
+      <xs:element ref="D2LogicalModel:LinearLineStringExtension"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="LinearLineStringExtension" substitutionGroup="gml:AbstractFeature" type="npra:LinearLineStringExtensionType"/>
-  <xs:complexType name="OpenlrLocationReferencePointType">
-    <xs:annotation>
-      <xs:documentation>The basis of a location reference is a sequence of location reference points (LRPs).</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="npra:OpenlrBaseLocationReferencePoint">
-        <xs:sequence>
-          <xs:element name="openlrPathAttributes" type="npra:OpenlrPathAttributesPropertyType"/>
-          <xs:element minOccurs="0" name="openlrLocationReferencePointExtension" type="npra:_ExtensionTypePropertyType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="OpenlrLocationReferencePointPropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:OpenlrLocationReferencePoint"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="OpenlrLocationReferencePoint" substitutionGroup="gml:AbstractFeature" type="npra:OpenlrLocationReferencePointType"/>
-  <xs:complexType name="UrlLinkType">
-    <xs:complexContent>
-      <xs:extension base="gml:AbstractFeatureType">
-        <xs:annotation>
-          <xs:documentation>Details of a Uniform Resource Locator (URL) address pointing to a resource available on the Internet from where further relevant information may be obtained.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="urlLinkAddress" type="npra:Url">
-            <xs:annotation>
-              <xs:documentation>A Uniform Resource Locator (URL) address pointing to a resource available on the Internet from where further relevant information may be obtained.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="urlLinkDescription" type="npra:MultilingualStringPropertyType">
-            <xs:annotation>
-              <xs:documentation>Description of the relevant information available on the Internet from the URL link.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="urlLinkType" type="npra:UrlLinkTypeEnum">
-            <xs:annotation>
-              <xs:documentation>Details of the type of relevant information available on the Internet from the URL link.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element minOccurs="0" name="urlLinkExtension" type="npra:_ExtensionTypePropertyType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="UrlLinkPropertyType">
-    <xs:sequence minOccurs="0">
-      <xs:element ref="npra:UrlLink"/>
-    </xs:sequence>
-    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
-  </xs:complexType>
-  <xs:element name="UrlLink" substitutionGroup="gml:AbstractFeature" type="npra:UrlLinkType"/>
+  <xs:element name="LinearLineStringExtension" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:LinearLineStringExtensionType"/>
   <xs:complexType name="MultilingualStringType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -1148,7 +885,7 @@
           <xs:element name="values">
             <xs:complexType>
               <xs:sequence>
-                <xs:element maxOccurs="unbounded" name="value" type="npra:MultilingualStringValuePropertyType"/>
+                <xs:element maxOccurs="unbounded" name="value" type="D2LogicalModel:MultilingualStringValuePropertyType"/>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -1158,11 +895,11 @@
   </xs:complexType>
   <xs:complexType name="MultilingualStringPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:MultilingualString"/>
+      <xs:element ref="D2LogicalModel:MultilingualString"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="MultilingualString" substitutionGroup="gml:AbstractFeature" type="npra:MultilingualStringType"/>
+  <xs:element name="MultilingualString" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:MultilingualStringType"/>
   <xs:complexType name="DelaysType">
     <xs:complexContent>
       <xs:extension base="gml:AbstractFeatureType">
@@ -1170,33 +907,851 @@
           <xs:documentation>The details of the delays being caused by the situation element defined in the situation record. It is recommended to only use one of the optional attributes to avoid confusion.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="0" name="delayBand" type="npra:DelayBandEnum">
+          <xs:element maxOccurs="1" minOccurs="0" name="delayBand" type="D2LogicalModel:DelayBandEnum">
             <xs:annotation>
               <xs:documentation>The time band within which the additional travel time due to adverse travel conditions of any kind falls, when compared to &quot;normal conditions&quot;.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="delaysType" type="npra:DelaysTypeEnum">
+          <xs:element maxOccurs="1" minOccurs="0" name="delaysType" type="D2LogicalModel:DelaysTypeEnum">
             <xs:annotation>
               <xs:documentation>Coarse classification of the delay.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" name="delayTimeValue" type="npra:Seconds">
+          <xs:element maxOccurs="1" minOccurs="0" name="delayTimeValue" type="D2LogicalModel:Seconds">
             <xs:annotation>
               <xs:documentation>The value of the additional travel time due to adverse travel conditions of any kind, when compared to &quot;normal conditions&quot;, given in seconds.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element minOccurs="0" name="delaysExtension" type="npra:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="delaysExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="DelaysPropertyType">
     <xs:sequence minOccurs="0">
-      <xs:element ref="npra:Delays"/>
+      <xs:element ref="D2LogicalModel:Delays"/>
     </xs:sequence>
     <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
   </xs:complexType>
-  <xs:element name="Delays" substitutionGroup="gml:AbstractFeature" type="npra:DelaysType"/>
+  <xs:element name="Delays" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:DelaysType"/>
+  <xs:complexType name="OpenlrLastLocationReferencePointType">
+    <xs:annotation>
+      <xs:documentation>The sequence of location reference points is terminated by a last location reference point.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="D2LogicalModel:OpenlrBaseLocationReferencePoint">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="openlrLastLocationReferencePointExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OpenlrLastLocationReferencePointPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:OpenlrLastLocationReferencePoint"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="OpenlrLastLocationReferencePoint" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:OpenlrLastLocationReferencePointType"/>
+  <xs:complexType name="PrimaryConrolResponsibilityType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Specification of who and/or which camera base station has primary responsibility for control of the CCTV camera.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="cameraBaseStationName" type="D2LogicalModel:MultilingualStringPropertyType">
+            <xs:annotation>
+              <xs:documentation>The name of the CCTV camera base station which has primary control of the camera (i.e. owns the camera).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cameraBaseStationIdentification" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>The identity of the CCTV camera base station which has primary control of the camera (i.e. owns the camera).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="controlCentreName" type="D2LogicalModel:MultilingualStringPropertyType">
+            <xs:annotation>
+              <xs:documentation>The name of the road operator's control centre (e.g. South East Regional Control Centre) which is associated with the CCTV camera base station that has primary control of the camera.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="controlCentreIdentification" type="D2LogicalModel:Integer">
+            <xs:annotation>
+              <xs:documentation>The identity of the road operator's control centre (e.g. SERCC) which is associated with the CCTV camera base station that has primary control of the camera.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="workGroupName" type="D2LogicalModel:MultilingualStringPropertyType">
+            <xs:annotation>
+              <xs:documentation>The name of the work group in the control centre which has primary control of the CCTV camera.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="workGroupIdentification" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>The identity of the work group in the control centre which has primary control of the CCTV camera.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="primaryConrolResponsibilityExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PrimaryConrolResponsibilityPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:PrimaryConrolResponsibility"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="PrimaryConrolResponsibility" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:PrimaryConrolResponsibilityType"/>
+  <xs:complexType name="SituationRecordExtendedApprovedType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Extension class for SituationRecord.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="safetyRelatedMessage" type="D2LogicalModel:Boolean">
+            <xs:annotation>
+              <xs:documentation>Indicates, whether this SituationRecord specifies a safety related message according to Commission Delegated Regulation (EU) No 886/2013.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SituationRecordExtendedApprovedPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:SituationRecordExtendedApproved"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="SituationRecordExtendedApproved" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:SituationRecordExtendedApprovedType"/>
+  <xs:complexType name="TimePeriodOfDayType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Specification of a continuous period of time within a 24 hour period.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="timePeriodOfDayExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TimePeriodOfDayPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:TimePeriodOfDay"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="TimePeriodOfDay" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:TimePeriodOfDayType"/>
+  <xs:complexType name="LifeCycleManagementType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Information relating to the life cycle management of the situation record.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="cancel" type="D2LogicalModel:Boolean">
+            <xs:annotation>
+              <xs:documentation>Indication that all the element information previously sent is not considered valid, due to an incorrect content.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="end" type="D2LogicalModel:Boolean">
+            <xs:annotation>
+              <xs:documentation>A binary attribute specifying whether the situation element is finished (true) or not (false). If finished (i.e. end is true) then the overallEndTime in the OverallPeriod class associated with the SituationRecord must be populated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="lifeCycleManagementExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LifeCycleManagementPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:LifeCycleManagement"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="LifeCycleManagement" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:LifeCycleManagementType"/>
+  <xs:complexType name="SituationType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>An identifiable instance of a traffic/travel situation comprising one or more traffic/travel circumstances which are linked by one or more causal relationships. Each traffic/travel circumstance is represented by a Situation Record.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="overallSeverity" type="D2LogicalModel:SeverityEnum">
+            <xs:annotation>
+              <xs:documentation>The overall assessment of the impact (in terms of severity) that the situation as a whole is having, or will have, on the traffic flow as perceived by the supplier.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="relatedSituation" type="D2LogicalModel:_SituationVersionedReferencePropertyType">
+            <xs:annotation>
+              <xs:documentation>A reference to a related situation via its unique identifier.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="situationVersionTime" type="D2LogicalModel:DateTime">
+            <xs:annotation>
+              <xs:documentation>The date/time that this current version of the Situation was written into the database of the supplier which is involved in the data exchange. Identity and version of the situation are defined by the class stereotype implementation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="headerInformation" type="D2LogicalModel:HeaderInformationPropertyType"/>
+          <xs:element maxOccurs="unbounded" name="situationRecord" type="D2LogicalModel:SituationRecordPropertyType"/>
+          <xs:element minOccurs="0" name="situationExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="id" type="xs:string"/>
+          <xs:element minOccurs="0" name="version" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SituationPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:Situation"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="Situation" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:SituationType"/>
+  <xs:complexType name="OpenlrPathAttributesType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>The field path attributes is part of a location reference point (except for the last location reference point) and consists of lowest functional road class (LFRCNP) and distance to next point (DNP) data.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="openlrLowestFRCToNextLRPoint" type="D2LogicalModel:OpenlrFunctionalRoadClassEnum">
+            <xs:annotation>
+              <xs:documentation>The lowest FRC to the next point indicates the lowest functional road class used in the location reference path to the next LR-point.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="openlrDistanceToNextLRPoint" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The DNP attribute measures the distance in meters between two consecutive LR-points along the location reference path as described in the logical format.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="openlrPathAttributesExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OpenlrPathAttributesPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:OpenlrPathAttributes"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="OpenlrPathAttributes" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:OpenlrPathAttributesType"/>
+  <xs:complexType name="SourceType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Details of the source from which the information was obtained.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="sourceCountry" type="D2LogicalModel:CountryEnum">
+            <xs:annotation>
+              <xs:documentation>ISO 3166-1 two character country code of the source of the information.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="sourceIdentification" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>Identifier of the organisation or the traffic equipment which has produced the information relating to this version of the information.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="sourceName" type="D2LogicalModel:MultilingualStringPropertyType">
+            <xs:annotation>
+              <xs:documentation>The name of the organisation which has produced the information relating to this version of the information.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="sourceType" type="D2LogicalModel:SourceTypeEnum">
+            <xs:annotation>
+              <xs:documentation>Information about the technology used for measuring the data or the method used for obtaining qualitative descriptions relating to this version of the information.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="reliable" type="D2LogicalModel:Boolean">
+            <xs:annotation>
+              <xs:documentation>An indication as to whether the source deems the associated information to be reliable/correct. &quot;True&quot; indicates it is deemed reliable.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="sourceExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SourcePropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:Source"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="Source" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:SourceType"/>
+  <xs:complexType name="DayWeekMonthType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Specification of periods defined by the intersection of days, weeks and months.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="7" minOccurs="0" name="applicableDay" type="D2LogicalModel:DayEnum">
+            <xs:annotation>
+              <xs:documentation>Applicable day of the week. &quot;All days of the week&quot; is expressed by non-inclusion of this attribute.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="5" minOccurs="0" name="applicableWeek" type="D2LogicalModel:WeekOfMonthEnum">
+            <xs:annotation>
+              <xs:documentation>Applicable week of the month (1 to 5).  &quot;All weeks of the month&quot; is expressed by non-inclusion of this attribute.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="12" minOccurs="0" name="applicableMonth" type="D2LogicalModel:MonthOfYearEnum">
+            <xs:annotation>
+              <xs:documentation>Applicable month of the year.  &quot;All months of the year&quot; is expressed by non-inclusion of this attribute.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="dayWeekMonthExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DayWeekMonthPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:DayWeekMonth"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="DayWeekMonth" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:DayWeekMonthType"/>
+  <xs:complexType name="VersionedReferenceType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:string"/>
+          <xs:element minOccurs="0" name="version" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="VersionedReferencePropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:VersionedReference"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="VersionedReference" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:VersionedReferenceType"/>
+  <xs:complexType name="OverallPeriodType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>A continuous or discontinuous period of validity defined by overall bounding start and end times and the possible intersection of valid periods (potentially recurring) with the complement of exception periods (also potentially recurring).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="overallStartTime" type="D2LogicalModel:DateTime">
+            <xs:annotation>
+              <xs:documentation>Start of bounding period of validity defined by date and time.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="overallEndTime" type="D2LogicalModel:DateTime">
+            <xs:annotation>
+              <xs:documentation>End of bounding period of validity defined by date and time.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="validPeriod" type="D2LogicalModel:PeriodPropertyType">
+            <xs:annotation>
+              <xs:documentation>A single time period, a recurring time period or a set of different recurring time periods during which validity is true.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="exceptionPeriod" type="D2LogicalModel:PeriodPropertyType">
+            <xs:annotation>
+              <xs:documentation>A single time period, a recurring time period or a set of different recurring time periods during which validity is false.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="overallPeriodExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OverallPeriodPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:OverallPeriod"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="OverallPeriod" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:OverallPeriodType"/>
+  <xs:complexType name="OpenlrLineLocationReferenceType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>A LineLocationReference is defined by an ordered sequence of location reference points and a terminating last location reference point.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="openlrLocationReferencePoint" type="D2LogicalModel:OpenlrLocationReferencePointPropertyType"/>
+          <xs:element name="openlrLastLocationReferencePoint" type="D2LogicalModel:OpenlrLastLocationReferencePointPropertyType"/>
+          <xs:element minOccurs="0" name="openlrOffsets" type="D2LogicalModel:OpenlrOffsetsPropertyType"/>
+          <xs:element minOccurs="0" name="openlrLineLocationReferenceExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OpenlrLineLocationReferencePropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:OpenlrLineLocationReference"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="OpenlrLineLocationReference" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:OpenlrLineLocationReferenceType"/>
+  <xs:complexType name="_SituationRecordExtensionTypeType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="situationRecordExtendedApproved" type="D2LogicalModel:SituationRecordExtendedApprovedPropertyType"/>
+          <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="_SituationRecordExtensionTypePropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:_SituationRecordExtensionType"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="_SituationRecordExtensionType" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:_SituationRecordExtensionTypeType"/>
+  <xs:complexType name="_ExtensionTypeType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:sequence>
+          <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##any" processContents="lax"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="_ExtensionTypePropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:_ExtensionType"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="_ExtensionType" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:_ExtensionTypeType"/>
+  <xs:complexType name="CommentType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>A free text comment with an optional date/time stamp that can be used by the operator to convey un-coded observations/information.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="comment" type="D2LogicalModel:MultilingualStringPropertyType">
+            <xs:annotation>
+              <xs:documentation>A free text comment that can be used by the operator to convey un-coded observations/information.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="commentDateTime" type="D2LogicalModel:DateTime">
+            <xs:annotation>
+              <xs:documentation>The date/time at which the comment was made.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="commentType" type="D2LogicalModel:CommentTypeEnum">
+            <xs:annotation>
+              <xs:documentation>A classification of the the type of comment.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="commentExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CommentPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:Comment"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="Comment" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:CommentType"/>
+  <xs:complexType name="OpenlrBaseLocationReferencePointType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Base class used to hold data about a reference point.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element name="openlrCoordinate" type="D2LogicalModel:PointCoordinatesPropertyType"/>
+          <xs:element name="openlrLineAttributes" type="D2LogicalModel:OpenlrLineAttributesPropertyType"/>
+          <xs:element minOccurs="0" name="openlrBaseLocationReferencePointExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OpenlrBaseLocationReferencePointPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:OpenlrBaseLocationReferencePoint"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="OpenlrBaseLocationReferencePoint" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:OpenlrBaseLocationReferencePointType"/>
+  <xs:complexType name="CctvCameraControlDataType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Details of the control aspects of the CCTV camera that are relevant for a client.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cctvCameraTrueNorthPosition" type="D2LogicalModel:CctvCameraTrueNorthPositionPropertyType"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="availablePresetsForCctvCamera" type="D2LogicalModel:CctvCameraPresetsPropertyType">
+            <xs:annotation>
+              <xs:documentation>Set of preset values that are available for the CCTV camera.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="cctvCameraControlLimits" type="D2LogicalModel:CctvCameraControlLimitsPropertyType"/>
+          <xs:element minOccurs="0" name="cctvCameraControlDataExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CctvCameraControlDataPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:CctvCameraControlData"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="CctvCameraControlData" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:CctvCameraControlDataType"/>
+  <xs:complexType name="CctvVideoServiceType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Details of the video service available from the CCTV camera.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvVideoServiceLevel" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The level assigned to this video service.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvVideoServiceLevelName" type="D2LogicalModel:MultilingualStringPropertyType">
+            <xs:annotation>
+              <xs:documentation>The name assigned to this video service level.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvVideoEncodingStandard" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>The video compression standard used, e.g. MPEG2, MPEG4.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvVideoResolution" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>Texual description of the resolution, e.g. &quot;CIF&quot; (Common Intermediate Format), &quot;SIF&quot; (Source Input Format), etc.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvVideoFrameRate" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The number of video frames per second on this video service.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvVideoBitRate" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The bit rate of this video service level measured in bits per second.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvVideoZoomBlankingLevel" type="D2LogicalModel:NonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation>The zoom level beyond which video images for this service level will be blanked.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="videoUrl" type="D2LogicalModel:UrlLinkPropertyType">
+            <xs:annotation>
+              <xs:documentation>The URL from where the current video stream from the CCTV camera can be obtained.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="orientationImageUrl" type="D2LogicalModel:UrlLinkPropertyType">
+            <xs:annotation>
+              <xs:documentation>The URL from where a sample orientation image for the video service from the CCTV camera can be obtained to assist in identifying camera orientation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="thumbnailImageUrl" type="D2LogicalModel:UrlLinkPropertyType">
+            <xs:annotation>
+              <xs:documentation>Thumbnail image URL</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="cctvVideoServiceExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CctvVideoServicePropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:CctvVideoService"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="CctvVideoService" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:CctvVideoServiceType"/>
+  <xs:complexType name="MultilingualStringValueType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:simpleContent>
+          <xs:extension base="D2LogicalModel:MultilingualStringSimpleValueType">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="lang" type="xs:language"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:simpleContent>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MultilingualStringValuePropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:MultilingualStringValue"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="MultilingualStringValue" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:MultilingualStringValueType"/>
+  <xs:complexType name="ManagementType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Information relating to the management of the situation record.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="lifeCycleManagement" type="D2LogicalModel:LifeCycleManagementPropertyType"/>
+          <xs:element minOccurs="0" name="filterExitManagement" type="D2LogicalModel:FilterExitManagementPropertyType"/>
+          <xs:element minOccurs="0" name="managementExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ManagementPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:Management"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="Management" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:ManagementType"/>
+  <xs:complexType name="ValidityType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Specification of validity, either explicitly or by a validity time period specification which may be discontinuous.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="validityStatus" type="D2LogicalModel:ValidityStatusEnum">
+            <xs:annotation>
+              <xs:documentation>Specification of validity, either explicitly overriding the validity time specification or confirming it.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="overrunning" type="D2LogicalModel:Boolean">
+            <xs:annotation>
+              <xs:documentation>The activity or action described by the SituationRecord is still in progress, overrunning its planned duration as indicated in a previous version of this record.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="validityTimeSpecification" type="D2LogicalModel:OverallPeriodPropertyType">
+            <xs:annotation>
+              <xs:documentation>A specification of periods of validity defined by overall bounding start and end times and the possible intersection of valid periods with exception periods (exception periods overriding valid periods).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="validityExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ValidityPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:Validity"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="Validity" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:ValidityType"/>
+  <xs:complexType name="PeriodExtendedType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>An extension point for Period offering the possibility to describe special days and public holidays.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="recurringSpecialDay" type="D2LogicalModel:SpecialDayPropertyType">
+            <xs:annotation>
+              <xs:documentation>A recurring period in terms of special days.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PeriodExtendedPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:PeriodExtended"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="PeriodExtended" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:PeriodExtendedType"/>
+  <xs:complexType name="OpenlrLocationReferencePointType">
+    <xs:annotation>
+      <xs:documentation>The basis of a location reference is a sequence of location reference points (LRPs).</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="D2LogicalModel:OpenlrBaseLocationReferencePoint">
+        <xs:sequence>
+          <xs:element name="openlrPathAttributes" type="D2LogicalModel:OpenlrPathAttributesPropertyType"/>
+          <xs:element minOccurs="0" name="openlrLocationReferencePointExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OpenlrLocationReferencePointPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:OpenlrLocationReferencePoint"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="OpenlrLocationReferencePoint" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:OpenlrLocationReferencePointType"/>
+  <xs:complexType name="CctvCameraMetadataRecordType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>A record containing the metadata relating to a specific CCTV camera.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvCameraIdentification" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>The identifier assigned to the CCTV camera at its deployed location.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvCameraSerialNumber" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>The serial number of the actual CCTV camera equipment installed. When the deployed camera is replaced (e.g. during maintenance) this serial number will change, whereas the camera identification will stay the same.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvCameraRecordVersionTime" type="D2LogicalModel:DateTime">
+            <xs:annotation>
+              <xs:documentation>The date/time that this version of the CCTV camera record was defined. The identity and version of the CCTV camera record are defined by the class stereotype implementation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvCameraSiteLocalDescription" type="D2LogicalModel:MultilingualStringPropertyType">
+            <xs:annotation>
+              <xs:documentation>A description of the site where the CCTV camera is deployed which is likely to be used by users with local knowledge (e.g. &quot;M4 187/8b St Catherine's Hill&quot;).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvCameraSiteNationalDescription" type="D2LogicalModel:MultilingualStringPropertyType">
+            <xs:annotation>
+              <xs:documentation>A description of the site where the CCTV camera is deployed which is likely to be used by users without local knowledge (e.g. &quot;M4 westbound between J20 and J21&quot;).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="cctvCameraOrientationDescription" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>An image content description which may help clients identify camera orientation, e.g. &quot;The carriageway closest to the camera is northbound&quot;, or &quot;If the road curves to the left the camera is pointing south&quot;.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="cctvCameraType" type="D2LogicalModel:CctvCameraTypeEnum">
+            <xs:annotation>
+              <xs:documentation>The type of the CCTV camera.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvCameraHeightAboveRoadway" type="D2LogicalModel:MetresAsFloat">
+            <xs:annotation>
+              <xs:documentation>The height in metres of the CCTV camera head above the roadway.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvFixedCamera" type="D2LogicalModel:Boolean">
+            <xs:annotation>
+              <xs:documentation>An indication of whether the CCTV camera is a fixed type or a pan/tilt/zoom type. &quot;True&quot; indicates it is fixed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="cctvStaticCamera" type="D2LogicalModel:Boolean">
+            <xs:annotation>
+              <xs:documentation>An indication of whether the CCTV camera is a static or a mobile type. &quot;True&quot; indicates it is static.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="nextCctvCamera" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>The identifier of the next CCTV camera on the same road relative to the traffic direction on the principle monitored carriageway (there may be multiple next cameras at junctions and slip roads).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="previousCctvCamera" type="D2LogicalModel:String">
+            <xs:annotation>
+              <xs:documentation>The identifier of the previous CCTV camera on the same road relative to the traffic direction on the principle monitored carriageway (there may be multiple previous cameras at junctions and slip roads).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="source" type="D2LogicalModel:SourcePropertyType"/>
+          <xs:element name="cctvCameraLocation" type="D2LogicalModel:LocationPropertyType">
+            <xs:annotation>
+              <xs:documentation>Location of CCTV camera.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="cctvPotentialMonitoringLocation" type="D2LogicalModel:LocationPropertyType">
+            <xs:annotation>
+              <xs:documentation>A location (i.e. a point such as a car park exit, a linear section of the road network with specified direction or an area) that the CCTV camera is potentially capable of effectively monitoring.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="primaryConrolResponsibility" type="D2LogicalModel:PrimaryConrolResponsibilityPropertyType"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="cctvStillImageService" type="D2LogicalModel:CctvStillImageServicePropertyType"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="cctvVideoService" type="D2LogicalModel:CctvVideoServicePropertyType"/>
+          <xs:element minOccurs="0" name="cctvCameraControlData" type="D2LogicalModel:CctvCameraControlDataPropertyType"/>
+          <xs:element minOccurs="0" name="cctvCameraMetadataRecordExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+          <xs:element minOccurs="0" name="id" type="xs:string"/>
+          <xs:element minOccurs="0" name="version" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CctvCameraMetadataRecordPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:CctvCameraMetadataRecord"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="CctvCameraMetadataRecord" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:CctvCameraMetadataRecordType"/>
+  <xs:complexType name="UrlLinkType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractFeatureType">
+        <xs:annotation>
+          <xs:documentation>Details of a Uniform Resource Locator (URL) address pointing to a resource available on the Internet from where further relevant information may be obtained.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="urlLinkAddress" type="D2LogicalModel:Url">
+            <xs:annotation>
+              <xs:documentation>A Uniform Resource Locator (URL) address pointing to a resource available on the Internet from where further relevant information may be obtained.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="urlLinkDescription" type="D2LogicalModel:MultilingualStringPropertyType">
+            <xs:annotation>
+              <xs:documentation>Description of the relevant information available on the Internet from the URL link.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="urlLinkType" type="D2LogicalModel:UrlLinkTypeEnum">
+            <xs:annotation>
+              <xs:documentation>Details of the type of relevant information available on the Internet from the URL link.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="urlLinkExtension" type="D2LogicalModel:_ExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="UrlLinkPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:UrlLink"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="UrlLink" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:UrlLinkType"/>
+  <xs:complexType abstract="true" name="LocationType">
+    <xs:annotation>
+      <xs:documentation>The specification of a location either on a network (as a point or a linear location) or as an area. This may be provided in one or more referencing systems.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="D2LogicalModel:GroupOfLocations">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="externalReferencing" type="D2LogicalModel:ExternalReferencingPropertyType"/>
+          <xs:element minOccurs="0" name="locationForDisplay" type="D2LogicalModel:PointCoordinatesPropertyType">
+            <xs:annotation>
+              <xs:documentation>A location which may be used by clients for visual display on user interfaces.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="locationExtension" type="D2LogicalModel:_LocationExtensionTypePropertyType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocationPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="D2LogicalModel:Location"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="Location" substitutionGroup="gml:AbstractFeature" type="D2LogicalModel:LocationType"/>
   <xs:simpleType name="AbnormalTrafficTypeEnum">
     <xs:annotation>
       <xs:documentation>Collection of descriptive terms for abnormal traffic conditions specifically relating to the nature of the traffic movement.</xs:documentation>
@@ -1710,13 +2265,13 @@
     <xs:annotation>
       <xs:documentation>A positive integer number (between 1 and 63,487) which uniquely identifies a pre-defined Alert C location defined within an Alert-C table.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:NonNegativeInteger"/>
+    <xs:restriction base="D2LogicalModel:NonNegativeInteger"/>
   </xs:simpleType>
   <xs:simpleType name="AmountOfMoney">
     <xs:annotation>
       <xs:documentation>A monetary value expressed to two decimal places.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Decimal">
+    <xs:restriction base="D2LogicalModel:Decimal">
       <xs:totalDigits value="8"/>
       <xs:fractionDigits value="2"/>
     </xs:restriction>
@@ -1725,13 +2280,13 @@
     <xs:annotation>
       <xs:documentation>Ampere.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="AngleInDegrees">
     <xs:annotation>
       <xs:documentation>An integer number representing an angle in whole degrees between 0 and 359.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:NonNegativeInteger"/>
+    <xs:restriction base="D2LogicalModel:NonNegativeInteger"/>
   </xs:simpleType>
   <xs:simpleType name="AnimalPresenceTypeEnum">
     <xs:annotation>
@@ -1895,7 +2450,7 @@
     <xs:annotation>
       <xs:documentation>Vehicle axles per hour.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:NonNegativeInteger"/>
+    <xs:restriction base="D2LogicalModel:NonNegativeInteger"/>
   </xs:simpleType>
   <xs:simpleType name="Base64Binary">
     <xs:annotation>
@@ -2507,7 +3062,7 @@
     <xs:annotation>
       <xs:documentation>The coefficient of friction (COF), often symbolized by the Greek letter µ, is a dimensionless scalar value which describes the ratio of the force of friction between two bodies and the force pressing them together</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="ColourEnum">
     <xs:annotation>
@@ -2673,19 +3228,19 @@
     <xs:annotation>
       <xs:documentation>Concentration defined in kilograms per cubic metre (equivalent to grams per litre under standard conditions).</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="ConcentrationMicrogramsPerCubicMetre">
     <xs:annotation>
       <xs:documentation>A measure of concentration defined in µg/m3 (micrograms/cubic metre).</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="ConcentrationVehiclesPerKilometre">
     <xs:annotation>
       <xs:documentation>A measure of traffic density defined in number of vehicles per kilometre of road.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:NonNegativeInteger"/>
+    <xs:restriction base="D2LogicalModel:NonNegativeInteger"/>
   </xs:simpleType>
   <xs:simpleType name="ConfidentialityValueEnum">
     <xs:annotation>
@@ -2992,7 +3547,7 @@
     <xs:annotation>
       <xs:documentation>A volumetric measure defined in cubic metres.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="CurrencyEnum">
     <xs:annotation>
@@ -4668,7 +5223,7 @@
     <xs:annotation>
       <xs:documentation>A reference to an object given by its index qualifier.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:String"/>
+    <xs:restriction base="D2LogicalModel:String"/>
   </xs:simpleType>
   <xs:simpleType name="InformationStatusEnum">
     <xs:annotation>
@@ -4826,13 +5381,13 @@
     <xs:annotation>
       <xs:documentation>A measure of the quantity of application of a substance to an area defined in kilograms per square metre.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="IntensityMillimetresPerHour">
     <xs:annotation>
       <xs:documentation>A measure of precipitation intensity defined in millimetres per hour.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="InterUrbanParkingSiteLocationEnum">
     <xs:annotation>
@@ -4964,7 +5519,7 @@
     <xs:annotation>
       <xs:documentation>A measure of speed defined in kilometres per hour.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="LABELSecurityLevelEnum">
     <xs:annotation>
@@ -6502,13 +7057,13 @@
     <xs:annotation>
       <xs:documentation>A measure of distance defined in metres in a floating point format.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="MetresAsNonNegativeInteger">
     <xs:annotation>
       <xs:documentation>A measure of distance defined in metres in a non negative integer format.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:NonNegativeInteger"/>
+    <xs:restriction base="D2LogicalModel:NonNegativeInteger"/>
   </xs:simpleType>
   <xs:simpleType name="MobilityEnum">
     <xs:annotation>
@@ -8185,7 +8740,7 @@
     <xs:annotation>
       <xs:documentation>Passenger car units per hour.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:NonNegativeInteger"/>
+    <xs:restriction base="D2LogicalModel:NonNegativeInteger"/>
   </xs:simpleType>
   <xs:simpleType name="PaymentCardBrandsEnum">
     <xs:annotation>
@@ -8285,7 +8840,7 @@
     <xs:annotation>
       <xs:documentation>A measure of percentage.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="PermitTypeEnum">
     <xs:annotation>
@@ -10441,7 +10996,7 @@
     <xs:annotation>
       <xs:documentation>Seconds.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="ServiceFacilityTypeEnum">
     <xs:annotation>
@@ -10922,7 +11477,7 @@
     <xs:annotation>
       <xs:documentation>Square metres.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:NonNegativeInteger"/>
+    <xs:restriction base="D2LogicalModel:NonNegativeInteger"/>
   </xs:simpleType>
   <xs:simpleType name="String">
     <xs:annotation>
@@ -11075,7 +11630,7 @@
     <xs:annotation>
       <xs:documentation>A measure of temperature defined in degrees Celsius.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="Time">
     <xs:annotation>
@@ -11124,7 +11679,7 @@
     <xs:annotation>
       <xs:documentation>A measure of weight defined in metric tonnes.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="TpegLoc01AreaLocationSubtypeEnum">
     <xs:annotation>
@@ -12440,7 +12995,7 @@
     <xs:annotation>
       <xs:documentation>Vehicles per hour.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:NonNegativeInteger"/>
+    <xs:restriction base="D2LogicalModel:NonNegativeInteger"/>
   </xs:simpleType>
   <xs:simpleType name="VehicleStatusEnum">
     <xs:annotation>
@@ -13528,7 +14083,7 @@
     <xs:annotation>
       <xs:documentation>Volt.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="npra:Float"/>
+    <xs:restriction base="D2LogicalModel:Float"/>
   </xs:simpleType>
   <xs:simpleType name="WeatherRelatedRoadConditionTypeEnum">
     <xs:annotation>

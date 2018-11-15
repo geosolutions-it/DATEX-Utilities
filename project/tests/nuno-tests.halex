@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<hale-project version="3.3.0.SNAPSHOT">
+<hale-project version="3.3.0.qualifier">
     <name>npra-datex-mongodb</name>
     <author>geosolutions</author>
     <created>2018-11-07T16:58:04.439Z</created>
-    <modified>2018-11-07T17:04:32.959Z</modified>
+    <modified>2018-11-15T10:09:55.252Z</modified>
     <save-config action-id="project.save" provider-id="eu.esdihumboldt.hale.io.project.hale25.xml.writer">
         <setting name="charset">UTF-8</setting>
         <setting name="projectFiles.separate">false</setting>
         <setting name="contentType">eu.esdihumboldt.hale.io.project.hale25.xml</setting>
-        <setting name="target">file:/home/nuno/projects/NPRA/mappings-build-nov-2018/github/NPRA-C009/project/Untitled.halex</setting>
+        <setting name="target">file:/home/nuno/projects/NPRA/mappings-build-nov-2018/github/NPRA-C009/schemas/nuno-tests.halex</setting>
     </save-config>
     <resource action-id="eu.esdihumboldt.hale.io.schema.read.source" provider-id="eu.esdihumboldt.hale.io.mongo.schema">
         <setting name="charset">UTF-8</setting>
@@ -28,8 +28,8 @@
         <setting name="source">https://www.dropbox.com/s/jk3sz6ytfjllkrb/datex_2.3_gml.xsd?dl=1</setting>
         <setting name="contentType">eu.esdihumboldt.hale.io.xsd</setting>
     </resource>
-    <file name="alignment.xml" location="Untitled.halex.alignment.xml"/>
-    <file name="styles.sld" location="Untitled.halex.styles.sld"/>
+    <file name="alignment.xml" location="nuno-tests.halex.alignment.xml"/>
+    <file name="styles.sld" location="nuno-tests.halex.styles.sld"/>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CauseType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CauseType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CauseType/count">2</property>
@@ -159,4 +159,7 @@
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_SituationRecordExtensionTypeType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_SituationRecordExtensionTypeType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_SituationRecordExtensionTypeType/count">2</property>
+    <property name="target.url.history/1">http://localhost:8070/geoserver</property>
+    <property name="target.url.history/2">http://geoserver:8070/geoserver</property>
+    <property name="target.url.history/count">2</property>
 </hale-project>
