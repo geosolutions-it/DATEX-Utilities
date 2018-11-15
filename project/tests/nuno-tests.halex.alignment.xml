@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<alignment xmlns="http://www.esdi-humboldt.eu/hale/alignment">
+    <cell relation="eu.esdihumboldt.hale.align.retype" id="Ced4f4626-b13b-4e9f-9946-be45a18c2ebf" priority="normal">
+        <source>
+            <class>
+                <type name="generalPublicComment"/>
+            </class>
+        </source>
+        <target>
+            <class>
+                <type name="CommentType" ns="http://www.vegvesen.no/datex/1.0"/>
+            </class>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="C8a7e8687-4623-46c2-9557-c2528e1f23c4" priority="normal">
+        <source>
+            <property>
+                <type name="generalPublicComment"/>
+                <child name="commentType"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="CommentType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="commentType" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.retype" id="Cd758845b-1580-4b2b-a89e-d5a63c936e65" priority="normal">
+        <source>
+            <class>
+                <type name="situationRecord"/>
+            </class>
+        </source>
+        <target>
+            <class>
+                <type name="SituationRecordType" ns="http://www.vegvesen.no/datex/1.0"/>
+            </class>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.io.mongo.link" id="Ceac43517-ae0c-4fb7-a104-eb84f24edd99" priority="normal">
+        <source>
+            <property>
+                <type name="situationRecord"/>
+                <child name="generalPublicComment"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="SituationRecordType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="generalPublicComment" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="C89f2b873-8739-44ba-8e25-2fa1bfad14ef" priority="normal">
+        <source>
+            <property>
+                <type name="situationRecord"/>
+                <child name="id"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="SituationRecordType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="id" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.retype" id="Cd295fbd9-6675-4dd9-8960-e3990189b363" priority="normal">
+        <source>
+            <class>
+                <type name="geoJsonSituation"/>
+            </class>
+        </source>
+        <target>
+            <class>
+                <type name="SituationType" ns="http://www.vegvesen.no/datex/1.0"/>
+            </class>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="Cb9073551-85cd-41b5-a797-aad0c13c7e62" priority="normal">
+        <source>
+            <property>
+                <type name="geoJsonSituation"/>
+                <child name="data"/>
+                <child name="datex"/>
+                <child name="headerInformation"/>
+                <child name="confidentiality"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="SituationType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="headerInformation" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="HeaderInformation" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="confidentiality" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="C8b16efe1-aefa-4f69-8a96-396573e7f2a4" priority="normal">
+        <source>
+            <property>
+                <type name="geoJsonSituation"/>
+                <child name="data"/>
+                <child name="datex"/>
+                <child name="headerInformation"/>
+                <child name="informationStatus"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="SituationType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="headerInformation" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="HeaderInformation" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="informationStatus" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="C5a4f1c86-22f6-4978-b71a-572929960bb1" priority="normal">
+        <source>
+            <property>
+                <type name="geoJsonSituation"/>
+                <child name="data"/>
+                <child name="datex"/>
+                <child name="headerInformation"/>
+                <child name="urgency"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="SituationType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="headerInformation" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="HeaderInformation" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="urgency" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="Cb48c1a6c-ea2f-498e-ba5f-c8ecec9e4e81" priority="normal">
+        <source>
+            <property>
+                <type name="geoJsonSituation"/>
+                <child name="recordId"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="SituationType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="id" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="Cb23f9903-2402-411f-9dee-4c720379253f" priority="normal">
+        <source>
+            <property>
+                <type name="geoJsonSituation"/>
+                <child name="data"/>
+                <child name="datex"/>
+                <child name="overallSeverity"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="SituationType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="overallSeverity" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.io.mongo.link" id="C467d266a-49aa-4496-a2a6-ce812cf09910" priority="normal">
+        <source>
+            <property>
+                <type name="geoJsonSituation"/>
+                <child name="data"/>
+                <child name="datex"/>
+                <child name="situationRecord"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="SituationType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="situationRecord" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+    </cell>
+</alignment>
