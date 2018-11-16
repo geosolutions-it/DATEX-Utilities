@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <hale-project version="3.3.0.SNAPSHOT">
-    <name>situations</name>
+    <name>npra-situation</name>
     <author>geosolutions</author>
-    <created>2018-11-07T17:58:04.439+01:00</created>
-    <modified>2018-11-12T14:56:26.563+01:00</modified>
+    <created>2018-11-16T15:06:34.520+01:00</created>
+    <modified>2018-11-16T18:11:18.125+01:00</modified>
     <save-config action-id="project.save" provider-id="eu.esdihumboldt.hale.io.project.hale25.xml.writer">
         <setting name="charset">UTF-8</setting>
         <setting name="projectFiles.separate">false</setting>
@@ -12,10 +12,10 @@
     </save-config>
     <resource action-id="eu.esdihumboldt.hale.io.schema.read.source" provider-id="eu.esdihumboldt.hale.io.mongo.schema">
         <setting name="charset">UTF-8</setting>
-        <setting name="resourceId">14ffd61b-e569-4254-a1f0-16630269ae0f</setting>
+        <setting name="resourceId">03e6d1e8-d33e-405b-9276-f63db16aec46</setting>
         <setting name="MONGO_AUTHENTICATION_DATABASE"></setting>
         <setting name="SPECIFIC_ELEMENTS"></setting>
-        <setting name="MAX_ELEMENTS">10000</setting>
+        <setting name="MAX_ELEMENTS">5000</setting>
         <setting name="MONGO_USER"></setting>
         <setting name="source">mongodb://localhost:27017/npra05112018</setting>
         <setting name="contentType">eu.esdihumboldt.hale.io.mongo</setting>
@@ -24,8 +24,8 @@
     <resource action-id="eu.esdihumboldt.hale.io.schema.read.target" provider-id="eu.esdihumboldt.hale.io.xsd.reader">
         <setting name="charset">UTF-8</setting>
         <setting name="onlyElementsMappable">true</setting>
-        <setting name="resourceId">e3fcc524-768b-4c3f-807d-c1ba589c7309</setting>
-        <setting name="source">https://www.dropbox.com/s/jk3sz6ytfjllkrb/datex_2.3_gml.xsd?dl=1</setting>
+        <setting name="resourceId">9f8d650c-a266-4fdb-928c-f0b0c0161085</setting>
+        <setting name="source">file:/C:/Users/geosolutions/Fouad/NPRA-C009/schemas/datex_2.3_gml.xsd</setting>
         <setting name="contentType">eu.esdihumboldt.hale.io.xsd</setting>
     </resource>
     <file name="alignment.xml" location="situations.halex.alignment.xml"/>
@@ -33,6 +33,30 @@
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CauseType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CauseType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CauseType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraControlDataType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraControlDataType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraControlDataType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraControlLimitsType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraControlLimitsType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraControlLimitsType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraMetadataRecordType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraMetadataRecordType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraMetadataRecordType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraNonDwellZoneType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraNonDwellZoneType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraNonDwellZoneType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraPresetsType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraPresetsType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraPresetsType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraTrueNorthPositionType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraTrueNorthPositionType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvCameraTrueNorthPositionType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvStillImageServiceType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvStillImageServiceType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvStillImageServiceType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvVideoServiceType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvVideoServiceType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CctvVideoServiceType/count">2</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CommentType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CommentType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}CommentType/count">2</property>
@@ -42,6 +66,9 @@
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}DelaysType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}DelaysType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}DelaysType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}ExternalReferencingType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}ExternalReferencingType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}ExternalReferencingType/count">2</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}FilterExitManagementType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}FilterExitManagementType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}FilterExitManagementType/count">2</property>
@@ -68,6 +95,14 @@
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LinearLineStringExtensionType/1">{http://www.vegvesen.no/datex/1.0}gmlLineString</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LinearLineStringExtensionType/2">{http://www.opengis.net/gml/3.2/AbstractGeometry}choice</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LinearLineStringExtensionType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LocationExtensionType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LocationExtensionType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LocationExtensionType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LocationType/1">{http://www.vegvesen.no/datex/1.0}externalReferencing</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LocationType/2">{http://www.vegvesen.no/datex/1.0}ExternalReferencing</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LocationType/3">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LocationType/4">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}LocationType/count">4</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}ManagementType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}ManagementType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}ManagementType/count">2</property>
@@ -117,6 +152,9 @@
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}PointCoordinatesType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}PointCoordinatesType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}PointCoordinatesType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}PrimaryConrolResponsibilityType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}PrimaryConrolResponsibilityType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}PrimaryConrolResponsibilityType/count">2</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}PublicHolidayType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}PublicHolidayType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}PublicHolidayType/count">2</property>
@@ -153,6 +191,9 @@
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_LinearExtensionTypeType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_LinearExtensionTypeType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_LinearExtensionTypeType/count">2</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_LocationExtensionTypeType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_LocationExtensionTypeType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
+    <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_LocationExtensionTypeType/count">2</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_PeriodExtensionTypeType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_PeriodExtensionTypeType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_PeriodExtensionTypeType/count">2</property>
