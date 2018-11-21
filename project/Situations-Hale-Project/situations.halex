@@ -3,7 +3,7 @@
     <name>npra-situation</name>
     <author>geosolutions</author>
     <created>2018-11-16T15:06:34.520+01:00</created>
-    <modified>2018-11-20T17:56:35.697+01:00</modified>
+    <modified>2018-11-21T17:37:19.466+01:00</modified>
     <save-config action-id="project.save" provider-id="eu.esdihumboldt.hale.io.project.hale25.xml.writer">
         <setting name="charset">UTF-8</setting>
         <setting name="projectFiles.separate">false</setting>
