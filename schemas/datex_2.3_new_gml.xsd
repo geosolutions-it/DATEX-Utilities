@@ -27374,7 +27374,6 @@
                     </xs:element>
                 </xs:sequence>
             </xs:extension>
-			<xs:attribute name="lang" type="xs:language"/>
         </xs:complexContent>
     </xs:complexType>
     <xs:element name="MultilingualString" substitutionGroup="gml:AbstractFeature" type="npra:MultilingualStringType"/>
