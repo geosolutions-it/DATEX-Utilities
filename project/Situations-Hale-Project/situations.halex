@@ -3,12 +3,12 @@
     <name>npra-situation</name>
     <author>geosolutions</author>
     <created>2018-11-16T15:06:34.520+01:00</created>
-    <modified>2018-11-21T17:37:19.466+01:00</modified>
+    <modified>2018-11-22T17:34:39.980+01:00</modified>
     <save-config action-id="project.save" provider-id="eu.esdihumboldt.hale.io.project.hale25.xml.writer">
         <setting name="charset">UTF-8</setting>
         <setting name="projectFiles.separate">false</setting>
         <setting name="contentType">eu.esdihumboldt.hale.io.project.hale25.xml</setting>
-        <setting name="target">file:/C:/Users/geosolutions/Fouad/NPRA/Final-Test/situation/hale/situations.halex</setting>
+        <setting name="target">file:/C:/Users/geosolutions/Fouad/NPRA-C009/project/Situations-Hale-Project/situations.halex</setting>
     </save-config>
     <resource action-id="eu.esdihumboldt.hale.io.schema.read.source" provider-id="eu.esdihumboldt.hale.io.mongo.schema">
         <setting name="charset">UTF-8</setting>
