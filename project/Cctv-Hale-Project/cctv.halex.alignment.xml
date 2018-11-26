@@ -14,6 +14,22 @@
         <parameter value="false" name="ignoreNamespaces"/>
         <parameter value="false" name="structuralRename"/>
     </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="C77534aa4-84de-4f01-b05c-d79a5a68a5ca" priority="normal">
+        <source>
+            <property>
+                <type name="geoJsonCctv"/>
+                <child name="recordId"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="CctvCameraMetadataRecordType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="CctvCameraId" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
     <cell relation="eu.esdihumboldt.hale.align.rename" id="C8df87adf-bc05-4716-a0da-1d74b0434e5e" priority="normal">
         <source>
             <property>
@@ -144,7 +160,7 @@
         <parameter value="false" name="ignoreNamespaces"/>
         <parameter value="false" name="structuralRename"/>
     </cell>
-    <cell relation="eu.esdihumboldt.hale.align.rename" id="Cb0fd6d48-4771-43aa-9059-6ea5f7e6cb36" priority="normal">
+    <cell relation="eu.esdihumboldt.hale.io.mongo.link" id="C0bd112f0-e071-4985-91be-5f566af19cb1" priority="normal">
         <source>
             <property>
                 <type name="geoJsonCctv"/>
@@ -153,42 +169,14 @@
                 <child name="cctvCameraSiteLocalDescription"/>
                 <child name="values"/>
                 <child name="value"/>
-                <child name="lang"/>
             </property>
         </source>
         <target>
             <property>
                 <type name="CctvCameraMetadataRecordType" ns="http://www.vegvesen.no/datex/1.0"/>
                 <child name="cctvCameraSiteLocalDescription" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="values" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="lang" ns="http://www.vegvesen.no/datex/1.0"/>
             </property>
         </target>
-        <parameter value="false" name="ignoreNamespaces"/>
-        <parameter value="false" name="structuralRename"/>
-    </cell>
-    <cell relation="eu.esdihumboldt.hale.align.rename" id="Cdb7e23c9-795c-49a6-8969-56e9361df60d" priority="normal">
-        <source>
-            <property>
-                <type name="geoJsonCctv"/>
-                <child name="data"/>
-                <child name="datex"/>
-                <child name="cctvCameraSiteLocalDescription"/>
-                <child name="values"/>
-                <child name="value"/>
-                <child name="value"/>
-            </property>
-        </source>
-        <target>
-            <property>
-                <type name="CctvCameraMetadataRecordType" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="cctvCameraSiteLocalDescription" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="values" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="value" ns="http://www.vegvesen.no/datex/1.0"/>
-            </property>
-        </target>
-        <parameter value="false" name="ignoreNamespaces"/>
-        <parameter value="false" name="structuralRename"/>
     </cell>
     <cell relation="eu.esdihumboldt.hale.align.rename" id="Ce8604de0-2c53-410c-8c8b-10c5d264531c" priority="normal">
         <source>
@@ -240,6 +228,22 @@
             </property>
         </target>
     </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="C2b87e963-7784-465a-a7ba-a14714bad3a5" priority="normal">
+        <source>
+            <property>
+                <type name="geoJsonCctv"/>
+                <child name="geometry"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="CctvCameraMetadataRecordType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="geometry" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
     <cell relation="eu.esdihumboldt.hale.align.rename" id="C618f151f-bafb-48a0-a45e-764d1d5aeebc" priority="normal">
         <source>
             <property>
@@ -271,6 +275,38 @@
             <property>
                 <type name="CctvCameraMetadataRecordType" ns="http://www.vegvesen.no/datex/1.0"/>
                 <child name="previousCctvCamera" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="C445da8b6-34ea-4706-bdd5-f99e148314ec" priority="normal">
+        <source>
+            <property>
+                <type name="geoJsonCctv"/>
+                <child name="pubId"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="CctvCameraMetadataRecordType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="pubId" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="C2bdcdfa5-3b8a-489f-ba56-e6cf5d5698d7" priority="normal">
+        <source>
+            <property>
+                <type name="geoJsonCctv"/>
+                <child name="publicationTime"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="CctvCameraMetadataRecordType" ns="http://www.vegvesen.no/datex/1.0"/>
+                <child name="publicationTime" ns="http://www.vegvesen.no/datex/1.0"/>
             </property>
         </target>
         <parameter value="false" name="ignoreNamespaces"/>
@@ -340,37 +376,13 @@
         <parameter value="false" name="ignoreNamespaces"/>
         <parameter value="false" name="structuralRename"/>
     </cell>
-    <cell relation="eu.esdihumboldt.hale.align.rename" id="C686529bd-4ef5-418f-a792-13b84093db6f" priority="normal">
+    <cell relation="eu.esdihumboldt.hale.io.mongo.link" id="Cb3ac458e-aba3-4473-b3d8-887e8b4e70fe" priority="normal">
         <source>
             <property>
                 <type name="cctvStillImageService"/>
                 <child name="stillImageUrl"/>
                 <child name="urlLinkDescription"/>
                 <child name="values"/>
-                <child name="value"/>
-                <child name="lang"/>
-            </property>
-        </source>
-        <target>
-            <property>
-                <type name="CctvStillImageServiceType" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="stillImageUrl" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="urlLinkDescription" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="values" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="lang" ns="http://www.vegvesen.no/datex/1.0"/>
-            </property>
-        </target>
-        <parameter value="false" name="ignoreNamespaces"/>
-        <parameter value="false" name="structuralRename"/>
-    </cell>
-    <cell relation="eu.esdihumboldt.hale.align.rename" id="Cf0630cca-6884-4572-987f-12b8bd37de5f" priority="normal">
-        <source>
-            <property>
-                <type name="cctvStillImageService"/>
-                <child name="stillImageUrl"/>
-                <child name="urlLinkDescription"/>
-                <child name="values"/>
-                <child name="value"/>
                 <child name="value"/>
             </property>
         </source>
@@ -379,12 +391,8 @@
                 <type name="CctvStillImageServiceType" ns="http://www.vegvesen.no/datex/1.0"/>
                 <child name="stillImageUrl" ns="http://www.vegvesen.no/datex/1.0"/>
                 <child name="urlLinkDescription" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="values" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="value" ns="http://www.vegvesen.no/datex/1.0"/>
             </property>
         </target>
-        <parameter value="false" name="ignoreNamespaces"/>
-        <parameter value="false" name="structuralRename"/>
     </cell>
     <cell relation="eu.esdihumboldt.hale.align.retype" id="C35e4d1ad-7500-4700-8a66-2ac483ce9af0" priority="normal">
         <source>
@@ -484,7 +492,7 @@
         <parameter value="false" name="ignoreNamespaces"/>
         <parameter value="false" name="structuralRename"/>
     </cell>
-    <cell relation="eu.esdihumboldt.hale.align.rename" id="C94b2ad56-df87-4837-a52b-afc745db0f67" priority="normal">
+    <cell relation="eu.esdihumboldt.hale.io.mongo.link" id="C4e84dd2e-7ee3-4752-b15c-0d9a162087e2" priority="normal">
         <source>
             <property>
                 <type name="cctvVideoService"/>
@@ -492,7 +500,6 @@
                 <child name="urlLinkDescription"/>
                 <child name="values"/>
                 <child name="value"/>
-                <child name="lang"/>
             </property>
         </source>
         <target>
@@ -500,30 +507,49 @@
                 <type name="CctvVideoServiceType" ns="http://www.vegvesen.no/datex/1.0"/>
                 <child name="videoUrl" ns="http://www.vegvesen.no/datex/1.0"/>
                 <child name="urlLinkDescription" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="values" ns="http://www.vegvesen.no/datex/1.0"/>
+            </property>
+        </target>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.retype" id="Cb97532bf-7a55-41a2-8b26-801fe06229d0" priority="normal">
+        <source>
+            <class>
+                <type name="value"/>
+            </class>
+        </source>
+        <target>
+            <class>
+                <type name="MultilingualStringType" ns="http://www.vegvesen.no/datex/1.0"/>
+            </class>
+        </target>
+        <parameter value="false" name="ignoreNamespaces"/>
+        <parameter value="false" name="structuralRename"/>
+    </cell>
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="C9f9def8a-d200-4a91-a0c5-79b7f01c1270" priority="normal">
+        <source>
+            <property>
+                <type name="value"/>
+                <child name="lang"/>
+            </property>
+        </source>
+        <target>
+            <property>
+                <type name="MultilingualStringType" ns="http://www.vegvesen.no/datex/1.0"/>
                 <child name="lang" ns="http://www.vegvesen.no/datex/1.0"/>
             </property>
         </target>
         <parameter value="false" name="ignoreNamespaces"/>
         <parameter value="false" name="structuralRename"/>
     </cell>
-    <cell relation="eu.esdihumboldt.hale.align.rename" id="Cf6ba1d06-9167-44a5-a41a-c9b380d8a7ff" priority="normal">
+    <cell relation="eu.esdihumboldt.hale.align.rename" id="C7960d6b4-664b-43c9-8d15-57f3dc9055dc" priority="normal">
         <source>
             <property>
-                <type name="cctvVideoService"/>
-                <child name="videoUrl"/>
-                <child name="urlLinkDescription"/>
-                <child name="values"/>
-                <child name="value"/>
+                <type name="value"/>
                 <child name="value"/>
             </property>
         </source>
         <target>
             <property>
-                <type name="CctvVideoServiceType" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="videoUrl" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="urlLinkDescription" ns="http://www.vegvesen.no/datex/1.0"/>
-                <child name="values" ns="http://www.vegvesen.no/datex/1.0"/>
+                <type name="MultilingualStringType" ns="http://www.vegvesen.no/datex/1.0"/>
                 <child name="value" ns="http://www.vegvesen.no/datex/1.0"/>
             </property>
         </target>

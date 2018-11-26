@@ -3464,6 +3464,10 @@
                     <xs:element maxOccurs="unbounded" minOccurs="0" name="cctvVideoService" type="npra:CctvVideoServicePropertyType"/>
                     <xs:element minOccurs="0" name="cctvCameraControlData" type="npra:CctvCameraControlDataType"/>
                     <xs:element minOccurs="0" name="cctvCameraMetadataRecordExtension" type="npra:_ExtensionTypeType"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="geometry" type="gml:GeometryPropertyType"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="CctvCameraId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="pubId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="publicationTime" type="xs:string"/>
                 </xs:sequence>
                 <xs:attribute name="id" type="xs:string" use="required"/>
                 <xs:attribute name="version" type="xs:string" use="required"/>
