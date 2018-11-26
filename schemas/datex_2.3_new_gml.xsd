@@ -59,7 +59,7 @@
                         situation</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="causeDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="causeDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Description of a cause which is not managed by the
                                 publication creator (e.g. an off network cause).</xs:documentation>
@@ -243,7 +243,7 @@
                         of.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="managedLogicalLocation" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="managedLogicalLocation" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Identification of the logical location (e.g. a car
                                 park, a section of road , a junction etc.) which this sign
@@ -322,7 +322,7 @@
                                 displayed pictogram can be be obtained.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="additionalPictogramDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalPictogramDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Additional description of the
                                 pictogram.</xs:documentation>
@@ -754,18 +754,18 @@
                         ...</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="1" name="junctionName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="junctionName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of the junction.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="roadNodeExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="0" name="nameOfRoad" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="nameOfRoad" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The name of the road.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="roadIdentifier" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="roadIdentifier" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Identifier/number of the road.</xs:documentation>
                         </xs:annotation>
@@ -899,7 +899,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -1642,7 +1642,7 @@
                         start and end points.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="roadName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="roadName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of the road of which the linear element forms a
                                 part.</xs:documentation>
@@ -1728,13 +1728,13 @@
                         traffic flow.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="journeyDestination" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="journeyDestination" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Indicates the stated termination point of the transit
                                 journey.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="journeyOrigin" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="journeyOrigin" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Indicates the stated starting point of the transit
                                 journey.</xs:documentation>
@@ -2560,7 +2560,7 @@
                         either an additional line of text or a pictogram or both.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="supplementaryMessageDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="supplementaryMessageDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Free text description of the message that is displayed
                                 in the panel which is supplemental to the main pictogram
@@ -2609,7 +2609,7 @@
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="managedCauseExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="0" name="causeDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="causeDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Description of a cause which is not managed by the
                                 publication creator (e.g. an off network cause).</xs:documentation>
@@ -2695,7 +2695,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -2906,7 +2906,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -3164,7 +3164,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -3381,14 +3381,14 @@
                                 implementation.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="cctvCameraSiteLocalDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="cctvCameraSiteLocalDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A description of the site where the CCTV camera is
                                 deployed which is likely to be used by users with local knowledge
                                 (e.g. &quot;M4 187/8b St Catherine's Hill&quot;).</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="cctvCameraSiteNationalDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="cctvCameraSiteNationalDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A description of the site where the CCTV camera is
                                 deployed which is likely to be used by users without local knowledge
@@ -3918,7 +3918,7 @@
                                 passengers.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="generalMessageToRoadUsers" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="generalMessageToRoadUsers" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>General message that is issued by the network/road
                                 operator which is applicable to drivers and sometimes passengers,
@@ -4310,7 +4310,7 @@
                                 electionDay, .. .</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="specialDayName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="specialDayName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Specification of a special day, if the enumeration
                                 values do not fit.</xs:documentation>
@@ -4540,7 +4540,7 @@
                         an ALERT-C location table.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="alertCLocationName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="alertCLocationName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of ALERT-C location.</xs:documentation>
                         </xs:annotation>
@@ -4665,7 +4665,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -5162,7 +5162,7 @@
                         consistent with ISO 19148 definitions. </xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="administrativeAreaOfLinearSection" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="administrativeAreaOfLinearSection" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Identification of the road administration area which
                                 contains the specified linear section.</xs:documentation>
@@ -5593,7 +5593,7 @@
                                 version of the information.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="sourceName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="sourceName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The name of the organisation which has produced the
                                 information relating to this version of the
@@ -6450,7 +6450,7 @@
                         location.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="1" name="descriptor" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="descriptor" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A text string which describes or elaborates the
                                 location.</xs:documentation>
@@ -6913,7 +6913,7 @@
                     </xs:element>
                     <xs:element minOccurs="0" name="tpegJunctionPointDescriptorExtension" type="npra:_ExtensionTypeType"/>
                     <xs:element minOccurs="0" name="tpegPointDescriptorExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="descriptor" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="descriptor" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A text string which describes or elaborates the
                                 location.</xs:documentation>
@@ -7066,7 +7066,7 @@
                                 characters).</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="region" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="region" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Region of country (e.g. &quot;Scotland&quot;,
                                 &quot;Wales&quot; etc. if country = GB) </xs:documentation>
@@ -7078,7 +7078,7 @@
                                 region.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="publicHolidayName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="publicHolidayName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Specification of public holiday, if the enumeration
                                 values do not fit.</xs:documentation>
@@ -7427,7 +7427,7 @@
                             <xs:documentation>The type of the referent.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="referentDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="referentDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Description of the referent.</xs:documentation>
                         </xs:annotation>
@@ -7474,7 +7474,7 @@
                                 obtained.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="additionalSupplementaryPictogramDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalSupplementaryPictogramDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Additional free text description of the supplementary
                                 pictogram.</xs:documentation>
@@ -7573,7 +7573,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -7669,7 +7669,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -7755,7 +7755,7 @@
                             <xs:documentation>End of a period.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="periodName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="periodName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The name of the period.</xs:documentation>
                         </xs:annotation>
@@ -7937,7 +7937,7 @@
                     </xs:element>
                     <xs:element minOccurs="0" name="tpegIlcPointDescriptorExtension" type="npra:_ExtensionTypeType"/>
                     <xs:element minOccurs="0" name="tpegPointDescriptorExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="descriptor" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="descriptor" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A text string which describes or elaborates the
                                 location.</xs:documentation>
@@ -8210,7 +8210,7 @@
                                 operator.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reroutingItineraryDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reroutingItineraryDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A description of the rerouting
                                 itinerary.</xs:documentation>
@@ -8668,7 +8668,7 @@
                                 passengers.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="generalMessageToRoadUsers" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="generalMessageToRoadUsers" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>General message that is issued by the network/road
                                 operator which is applicable to drivers and sometimes passengers,
@@ -8698,13 +8698,13 @@
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="constructionWorksExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="0" name="journeyDestination" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="journeyDestination" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Indicates the stated termination point of the transit
                                 journey.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="journeyOrigin" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="journeyOrigin" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Indicates the stated starting point of the transit
                                 journey.</xs:documentation>
@@ -9003,7 +9003,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -9084,7 +9084,7 @@
                             <xs:documentation>Explicit type of junction.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="1" name="junctionName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="junctionName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of the junction.</xs:documentation>
                         </xs:annotation>
@@ -9481,12 +9481,12 @@
                     <xs:documentation>Details of an individual vehicle.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="vehicleColour" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="vehicleColour" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The colour of the vehicle.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="vehicleCountryOfOrigin" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="vehicleCountryOfOrigin" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Specification of the country in which the vehicle is
                                 registered. The code is the 2-alpha code as given in EN ISO 3166-1
@@ -9625,7 +9625,7 @@
                         primary responsibility for control of the CCTV camera.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="cameraBaseStationName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="cameraBaseStationName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The name of the CCTV camera base station which has
                                 primary control of the camera (i.e. owns the
@@ -9639,7 +9639,7 @@
                                 camera).</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="controlCentreName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="controlCentreName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The name of the road operator's control centre (e.g.
                                 South East Regional Control Centre) which is associated with the
@@ -9654,7 +9654,7 @@
                                 that has primary control of the camera.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="workGroupName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="workGroupName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The name of the work group in the control centre which
                                 has primary control of the CCTV camera.</xs:documentation>
@@ -9767,7 +9767,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -10134,7 +10134,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -10347,12 +10347,12 @@
                         name of a junctionon on this road.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="nameOfRoad" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="nameOfRoad" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The name of the road.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="roadIdentifier" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="roadIdentifier" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Identifier/number of the road.</xs:documentation>
                         </xs:annotation>
@@ -10382,7 +10382,7 @@
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="roadExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="junctionName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="junctionName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of the junction.</xs:documentation>
                         </xs:annotation>
@@ -10655,7 +10655,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -10806,7 +10806,7 @@
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="tpegAreaDescriptorExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="descriptor" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="descriptor" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A text string which describes or elaborates the
                                 location.</xs:documentation>
@@ -10900,7 +10900,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -10983,7 +10983,7 @@
                                 information may be obtained.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="urlLinkDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="urlLinkDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Description of the relevant information available on
                                 the Internet from the URL link.</xs:documentation>
@@ -11199,29 +11199,29 @@
                                 code.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="nation" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="nation" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of a nation (e.g. Wales) which is a sub-division
                                 of an ISO recognised country.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="county" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="county" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of a county (administrative
                                 sub-division).</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="areaName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="areaName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of an area.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="policeForceControlArea" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="policeForceControlArea" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of a police force area.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="roadOperatorControlArea" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="roadOperatorControlArea" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of a road operator control
                                 area.</xs:documentation>
@@ -11285,7 +11285,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -11578,7 +11578,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -12047,7 +12047,7 @@
                         junctions (and other alternative point descriptions).</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="description" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="description" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Textual description for a point
                                 location</xs:documentation>
@@ -12093,7 +12093,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -12536,7 +12536,10 @@
                     <xs:element name="headerInformation" type="npra:HeaderInformationType"/>
                     <xs:element maxOccurs="unbounded" name="situationRecord" type="npra:SituationRecordPropertyType"/>
                     <xs:element minOccurs="0" name="situationExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element name="geometry" type="gml:GeometryPropertyType" minOccurs="0" maxOccurs="1"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="geometry" type="gml:GeometryPropertyType"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="situationId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="pubId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="publicationTime" type="xs:string"/>
                 </xs:sequence>
                 <xs:attribute name="id" type="xs:string" use="required"/>
                 <xs:attribute name="version" type="xs:string" use="required"/>
@@ -12715,7 +12718,7 @@
                                 passengers.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="generalMessageToRoadUsers" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="generalMessageToRoadUsers" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>General message that is issued by the network/road
                                 operator which is applicable to drivers and sometimes passengers,
@@ -12730,7 +12733,7 @@
                                 operator.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reroutingItineraryDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reroutingItineraryDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A description of the rerouting
                                 itinerary.</xs:documentation>
@@ -13219,7 +13222,7 @@
                                 operator.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reroutingItineraryDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reroutingItineraryDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A description of the rerouting
                                 itinerary.</xs:documentation>
@@ -13632,7 +13635,7 @@
                                 service.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="cctvStillImageServiceLevelName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="cctvStillImageServiceLevelName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The name assigned to this still image service
                                 level.</xs:documentation>
@@ -13718,7 +13721,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -14149,7 +14152,7 @@
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="tpegIlcPointDescriptorExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="descriptor" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="descriptor" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A text string which describes or elaborates the
                                 location.</xs:documentation>
@@ -14708,7 +14711,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -14782,7 +14785,7 @@
                     <xs:documentation>Details of hazardous materials.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="1" name="chemicalName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="chemicalName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The chemical name of the hazardous substance carried
                                 by the vehicle.</xs:documentation>
@@ -14865,7 +14868,7 @@
                         19148 definitions. </xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="administrativeAreaOfPoint" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="administrativeAreaOfPoint" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Identification of the road administration area which
                                 contains the specified point.</xs:documentation>
@@ -15015,7 +15018,7 @@
                         observations/information.</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="1" name="comment" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="comment" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A free text comment that can be used by the operator
                                 to convey un-coded observations/information.</xs:documentation>
@@ -15075,7 +15078,7 @@
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="linearElementByPointsExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="0" name="roadName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="roadName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of the road of which the linear element forms a
                                 part.</xs:documentation>
@@ -15421,7 +15424,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -15792,7 +15795,7 @@
                                 service.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="cctvVideoServiceLevelName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="cctvVideoServiceLevelName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The name assigned to this video service
                                 level.</xs:documentation>
@@ -15886,7 +15889,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -16065,7 +16068,7 @@
                                 operator.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reroutingItineraryDescription" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reroutingItineraryDescription" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A description of the rerouting
                                 itinerary.</xs:documentation>
@@ -16303,7 +16306,7 @@
                                 passengers.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="generalMessageToRoadUsers" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="generalMessageToRoadUsers" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>General message that is issued by the network/road
                                 operator which is applicable to drivers and sometimes passengers,
@@ -16800,7 +16803,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -17025,7 +17028,7 @@
                         area</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="0" name="sectionName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="sectionName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of the polygon area. Especially useful when the
                                 area consists of more than one polygon.</xs:documentation>
@@ -17220,13 +17223,13 @@
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="carParksExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="0" name="journeyDestination" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="journeyDestination" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Indicates the stated termination point of the transit
                                 journey.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="journeyOrigin" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="journeyOrigin" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Indicates the stated starting point of the transit
                                 journey.</xs:documentation>
@@ -17404,7 +17407,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -17492,7 +17495,7 @@
                     </xs:element>
                     <xs:element minOccurs="0" name="tpegOtherPointDescriptorExtension" type="npra:_ExtensionTypeType"/>
                     <xs:element minOccurs="0" name="tpegPointDescriptorExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="descriptor" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="descriptor" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>A text string which describes or elaborates the
                                 location.</xs:documentation>
@@ -17530,7 +17533,7 @@
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="linearElementByCodeExtension" type="npra:_ExtensionTypeType"/>
-                    <xs:element maxOccurs="1" minOccurs="0" name="roadName" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="roadName" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>Name of the road of which the linear element forms a
                                 part.</xs:documentation>
@@ -17665,7 +17668,7 @@
                                 of coding of the road.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="alertCDirectionNamed" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="alertCDirectionNamed" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>ALERT-C name of a direction e.g. Brussels -&gt;
                                 Lille.</xs:documentation>
@@ -17709,7 +17712,7 @@
                                 associated.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="messageSetBy" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="messageSetBy" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The organisation or authority which set the message
                                 currently being displayed. </xs:documentation>
@@ -17722,7 +17725,7 @@
                                 set.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForSetting" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForSetting" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the sign has been
                                 set.</xs:documentation>
@@ -17761,7 +17764,7 @@
                                 set.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="requestedBy" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="requestedBy" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The authority, organisation or system which requested
                                 the setting of the message. This may be different from the authority
@@ -17839,7 +17842,7 @@
                                 available.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringType">
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="reasonForDataError" type="npra:MultilingualStringPropertyType">
                         <xs:annotation>
                             <xs:documentation>The reason why the value is deemed to be erroneous by
                                 the supplier.</xs:documentation>
@@ -27364,14 +27367,8 @@
         <xs:complexContent>
             <xs:extension base="gml:AbstractFeatureType">
                 <xs:sequence>
-                    <xs:element name="values">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element maxOccurs="1" name="value" type="xs:string"/>
-								<xs:element maxOccurs="1" name="lang" type="xs:language"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
+                    <xs:element maxOccurs="1" name="value" type="xs:string"/>
+                    <xs:element maxOccurs="1" name="lang" type="xs:language"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>

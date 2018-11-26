@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<hale-project version="3.3.0.SNAPSHOT">
+<hale-project version="3.3.0.qualifier">
     <name>npra-situation</name>
     <author>geosolutions</author>
-    <created>2018-11-16T15:06:34.520+01:00</created>
-    <modified>2018-11-22T17:34:39.980+01:00</modified>
+    <created>2018-11-16T14:06:34.520Z</created>
+    <modified>2018-11-26T13:06:52.110Z</modified>
     <save-config action-id="project.save" provider-id="eu.esdihumboldt.hale.io.project.hale25.xml.writer">
         <setting name="charset">UTF-8</setting>
         <setting name="projectFiles.separate">false</setting>
         <setting name="contentType">eu.esdihumboldt.hale.io.project.hale25.xml</setting>
-        <setting name="target">file:/C:/Users/geosolutions/Fouad/NPRA-C009/project/Situations-Hale-Project/situations.halex</setting>
+        <setting name="target">file:/home/nuno/projects/NPRA/mappings-build-nov-2018/github/NPRA-C009/project/Situations-Hale-Project/situations.halex</setting>
     </save-config>
     <resource action-id="eu.esdihumboldt.hale.io.schema.read.source" provider-id="eu.esdihumboldt.hale.io.mongo.schema">
         <setting name="charset">UTF-8</setting>
@@ -24,7 +24,7 @@
     <resource action-id="eu.esdihumboldt.hale.io.schema.read.target" provider-id="eu.esdihumboldt.hale.io.xsd.reader">
         <setting name="charset">UTF-8</setting>
         <setting name="onlyElementsMappable">true</setting>
-        <setting name="source">file:/C:/Users/geosolutions/Fouad/NPRA/Final-Test/datex_2.3_gml.xsd</setting>
+        <setting name="source">file:/home/nuno/projects/NPRA/mappings-build-nov-2018/github/NPRA-C009/schemas/datex_2.3_new_gml.xsd</setting>
         <setting name="contentType">eu.esdihumboldt.hale.io.xsd</setting>
     </resource>
     <file name="alignment.xml" location="situations.halex.alignment.xml"/>
@@ -894,6 +894,7 @@
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_VmsUnitVmsIndexVmsType/1">{http://www.opengis.net/gml/3.2}boundedBy</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_VmsUnitVmsIndexVmsType/2">{http://www.opengis.net/gml/3.2/BoundingShapeType}choice_1</property>
     <property name="defaultGeometry:{http://www.vegvesen.no/datex/1.0}_VmsUnitVmsIndexVmsType/count">2</property>
-    <property name="target.url.history/1">http://localhost:8080/geoserver</property>
-    <property name="target.url.history/count">1</property>
+    <property name="target.url.history/1">http://localhost:8070/geoserver</property>
+    <property name="target.url.history/2">http://localhost:8080/geoserver</property>
+    <property name="target.url.history/count">2</property>
 </hale-project>
