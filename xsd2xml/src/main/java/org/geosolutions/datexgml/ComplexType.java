@@ -17,7 +17,8 @@ public class ComplexType {
     public static final String PROPERTY_TYPE_SUFIX = "PropertyType";
     public static final String EXTENSION_TYPE_SUFIX = "Extension";
 
-    private GmlConverter converter;
+    private String encodePrefix = GmlConverter.DATEX_PREFIX;
+
     private Node node;
     private Node complexTypeNode;
     private Node complexPropertyTypeNode;
@@ -25,14 +26,18 @@ public class ComplexType {
 
     /**
      * Main constructor.
-     * 
-     * @param node      schema node to process.
-     * @param converter parent converter object.
+     *
+     * @param node schema node to process.
      */
-    public ComplexType(Node node, GmlConverter converter) {
+    public ComplexType(Node node) {
         super();
-        this.converter = converter;
         this.node = node;
+    }
+
+    public ComplexType(Node node, String encodePrefix) {
+        super();
+        this.node = node;
+        this.encodePrefix = encodePrefix;
     }
 
     public void buildResultNodes() {
@@ -60,7 +65,7 @@ public class ComplexType {
         // element
         Element element = node.getOwnerDocument().createElementNS(GmlConverter.XS_NS, "xs:element");
         element.setAttribute("name", name);
-        element.setAttribute("type", GmlConverter.DATEX_PREFIX + ":" + name + TYPE_SUFIX);
+        element.setAttribute("type", encodePrefix + ":" + name + TYPE_SUFIX);
         element.setAttribute("substitutionGroup", "gml:AbstractFeature");
         elementNode = element;
     }
@@ -76,7 +81,7 @@ public class ComplexType {
         ptNode.appendChild(sequence);
         // element
         Element element = node.getOwnerDocument().createElementNS(GmlConverter.XS_NS, "xs:element");
-        element.setAttribute("ref", GmlConverter.DATEX_PREFIX + ":" + name);
+        element.setAttribute("ref", encodePrefix + ":" + name);
         sequence.appendChild(element);
         // complexType/attributeGroup
         Element attributeGroup = node.getOwnerDocument().createElementNS(GmlConverter.XS_NS, "xs:attributeGroup");
@@ -89,10 +94,14 @@ public class ComplexType {
      */
     protected void buildExtendedContent() {
         List<Node> childs = GmlConverter.xpath(node, "child::*").collect(Collectors.toList());
-        // add annontations to result type
-        childs.stream().filter(c -> c.getNodeName().equals("annotation")).findFirst().ifPresent(c -> {
-            complexTypeNode.appendChild(c.cloneNode(true));
-        });
+        // add annotations to result type
+        childs.stream()
+                .filter(c -> c.getNodeName().equals("annotation"))
+                .findFirst()
+                .ifPresent(
+                        c -> {
+                            complexTypeNode.appendChild(c.cloneNode(true));
+                        });
         // delete abstract if have
         if (((Element) complexTypeNode).hasAttribute("abstract")) {
             ((Element) complexTypeNode).removeAttribute("abstract");
@@ -154,4 +163,11 @@ public class ComplexType {
         this.elementNode = elementNode;
     }
 
+    public String getEncodePrefix() {
+        return encodePrefix;
+    }
+
+    public void setEncodePrefix(String encodePrefix) {
+        this.encodePrefix = encodePrefix;
+    }
 }

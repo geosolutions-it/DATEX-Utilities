@@ -3,11 +3,14 @@ package org.geosolutions.datexgml;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -44,27 +47,30 @@ public class GmlConverter {
     public static final String DATEX_NS = "http://datex2.eu/schema/2/2_0";
     public static final String DATEX_PREFIX = "D2LogicalModel";
 
-    private File file;
-    private Document doc;
+    private List<File> files;
+    private List<Document> docs;
     private Document resultDoc;
     private Map<String, ComplexType> complexMap = new HashMap<>();
     private List<Node> simpleTypes;
     private List<String> rootTypesNames;
     private String targetNamespace;
 
+    private NamespacesController namespacesController;
+
     /**
      * Main constructor.
-     * 
-     * @param file            original schema file to convert.
-     * @param rootTypesNames  main types to start to visit.
+     *
+     * @param file original schema file to convert.
+     * @param rootTypesNames main types to start to visit.
      * @param targetNamespace target namespace to use on final generated schema.
      */
-    public GmlConverter(File file, List<String> rootTypesNames, String targetNamespace) {
+    public GmlConverter(List<File> files, List<String> rootTypesNames, String targetNamespace) {
         super();
-        this.file = file;
-        doc = load();
+        this.files = files;
+        docs = load();
         this.rootTypesNames = rootTypesNames;
         this.targetNamespace = targetNamespace;
+        this.namespacesController = new NamespacesController(docs);
     }
 
     public GmlConverter convert() {
@@ -92,21 +98,30 @@ public class GmlConverter {
     }
 
     protected void processElements(Element complexNode) {
+        processElements(complexNode, x -> this.getComplexMap().containsKey(x));
+    }
+
+    static void processElements(Element complexNode, Predicate<String> existsComplexType) {
         // modify elements type
-        xpath(complexNode, "descendant::element").forEach(e -> {
-            Element element = (Element) e;
-            final String typeName = element.getAttribute("type").replace("D2LogicalModel:", "");
-            // if type is a GML geometry definition, replace with real gml type
-            if (geomTypesToReplace().contains(typeName)) {
-                element.setAttribute("type", "gml:GeometryPropertyType");
-                return;
-            }
-            // if type is indexed on dependents complex types map
-            if (getComplexMap().containsKey(typeName)) {
-                // add propertyType to type name
-                element.setAttribute("type", element.getAttribute("type") + ComplexType.PROPERTY_TYPE_SUFIX);
-            }
-        });
+        xpath(complexNode, "descendant::element")
+                .forEach(
+                        e -> {
+                            Element element = (Element) e;
+                            final String typeName = cleanQname(element.getAttribute("type"));
+                            // if type is a GML geometry definition, replace with real gml type
+                            if (geomTypesToReplace().contains(typeName)) {
+                                element.setAttribute("type", "gml:GeometryPropertyType");
+                                return;
+                            }
+                            // if type is indexed on dependents complex types map
+                            if (existsComplexType.test(typeName)) {
+                                // add propertyType to type name
+                                /*element.setAttribute(
+                                        "type",
+                                        element.getAttribute("type")
+                                                + ComplexType.PROPERTY_TYPE_SUFIX);*/
+                            }
+                        });
         // convert attributes into elements
         List<Node> attributes = xpath(complexNode, "descendant::attribute").collect(Collectors.toList());
         if (!attributes.isEmpty()) {
@@ -141,20 +156,32 @@ public class GmlConverter {
         try {
             builder = dbf.newDocumentBuilder();
             resultDoc = builder.newDocument();
-            Node schemaNode = doc.getFirstChild().cloneNode(false);
-            resultDoc.adoptNode(schemaNode);
-            resultDoc.appendChild(schemaNode);
+
+            // Node schemaNode = doc.getFirstChild().cloneNode(false);
+            Element schemaElement = resultDoc.createElement("xs:schema");
+            // Add elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0"
+            // xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            schemaElement.setAttribute("elementFormDefault", "qualified");
+            schemaElement.setAttribute("attributeFormDefault", "unqualified");
+            schemaElement.setAttribute("version", "3.0");
+            schemaElement.setAttribute("xmlns:xs", "http://www.w3.org/2001/XMLSchema");
+
+            // add imported namespaces
+            this.namespacesController.addNamespacesAttributes(schemaElement);
+
+            // resultDoc.adoptNode(schemaNode);
+            resultDoc.appendChild(schemaElement);
             // xmlns:gml="http://www.opengis.net/gml/3.2"
-            ((Element) schemaNode).setAttribute("xmlns:gml", "http://www.opengis.net/gml/3.2");
+            schemaElement.setAttribute("xmlns:gml", "http://www.opengis.net/gml/3.2");
             // targetNamespace
-            ((Element) schemaNode).setAttribute("targetNamespace", targetNamespace);
+            schemaElement.setAttribute("targetNamespace", targetNamespace);
             // xmlns:D2LogicalModel
-            ((Element) schemaNode).setAttribute("xmlns:D2LogicalModel", targetNamespace);
+            schemaElement.setAttribute("xmlns:D2LogicalModel", targetNamespace);
             // add import gml schema
             Element importElement = resultDoc.createElementNS(XS_NS, "xs:import");
             importElement.setAttribute("namespace", "http://www.opengis.net/gml/3.2");
             importElement.setAttribute("schemaLocation", "http://schemas.opengis.net/gml/3.2.1/gml.xsd");
-            schemaNode.appendChild(importElement);
+            schemaElement.appendChild(importElement);
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
@@ -176,7 +203,7 @@ public class GmlConverter {
     }
 
     protected List<Node> findSimpleTypes() {
-        return xpathRootDocument("/schema/simpleType").collect(Collectors.toList());
+        return xpathAllDocuments("/schema/simpleType");
     }
 
     /**
@@ -210,8 +237,14 @@ public class GmlConverter {
         });
     }
 
-    private String cleanQname(String qname) {
-        return qname.replace("D2LogicalModel:", "");
+    static String cleanQname(String qname) {
+        if (qname == null) return null;
+        if (qname.contains(":")) {
+            String[] parts = qname.split(Pattern.quote(":"));
+            return parts[1];
+        } else {
+            return qname;
+        }
     }
 
     protected Stream<Node> childElements(Node node) {
@@ -237,12 +270,22 @@ public class GmlConverter {
         }
     }
 
-    protected Stream<Node> xpathRootDocument(String xpath) {
+    protected List<Node> xpathAllDocuments(String xpath) {
+        List<Node> nodesList = new ArrayList<Node>();
+        for (Document edoc : this.docs) {
+            List<Node> resultNodes = xpathDocument(xpath, edoc);
+            nodesList.addAll(resultNodes);
+        }
+        return nodesList;
+    }
+
+    List<Node> xpathDocument(String xpath, Document doc) {
         XPath xPath = getXpath();
         try {
-            NodeList nodeList = (NodeList) xPath.compile(xpath).evaluate(doc, XPathConstants.NODESET);
-            Stream<Node> nodeStream = toStream(nodeList);
-            return nodeStream;
+            NodeList nodeList =
+                    (NodeList) xPath.compile(xpath).evaluate(doc, XPathConstants.NODESET);
+            List<Node> nodes = toStream(nodeList).collect(Collectors.toCollection(ArrayList::new));
+            return nodes;
         } catch (XPathExpressionException e) {
             throw new RuntimeException(e);
         }
@@ -250,7 +293,7 @@ public class GmlConverter {
 
     protected void addToMap(String name, Node node) {
         if (!complexMap.containsKey(name)) {
-            complexMap.put(name, new ComplexType(node, this));
+            complexMap.put(name, new ComplexType(node));
         }
     }
 
@@ -259,6 +302,16 @@ public class GmlConverter {
     }
 
     protected Optional<Node> getComplexTypeNode(String name) {
+        for (Document edoc : this.docs) {
+            Optional<Node> complexTypeNode = getComplexTypeNode(name, edoc);
+            if (complexTypeNode.isPresent()) {
+                return complexTypeNode;
+            }
+        }
+        return Optional.empty();
+    }
+
+    protected Optional<Node> getComplexTypeNode(String name, Document doc) {
         XPath xPath = getXpath();
         String query = "//schema/complexType[@name='" + name + "']";
         try {
@@ -283,16 +336,20 @@ public class GmlConverter {
         return xPath;
     }
 
-    protected Document load() {
-        try {
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder;
-            docBuilder = docFactory.newDocumentBuilder();
-            Document doc = docBuilder.parse(file);
-            return doc;
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new RuntimeException(e);
+    protected List<Document> load() {
+        List<Document> documents = new ArrayList<>();
+        for (File efile : files) {
+            try {
+                DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder docBuilder;
+                docBuilder = docFactory.newDocumentBuilder();
+                Document doc = docBuilder.parse(efile);
+                documents.add(doc);
+            } catch (ParserConfigurationException | SAXException | IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+        return documents;
     }
 
     Map<String, ComplexType> getComplexMap() {

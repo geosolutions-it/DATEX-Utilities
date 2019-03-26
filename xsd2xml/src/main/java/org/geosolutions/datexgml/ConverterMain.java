@@ -3,7 +3,9 @@ package org.geosolutions.datexgml;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
@@ -12,6 +14,8 @@ import org.apache.commons.io.FileUtils;
  */
 public class ConverterMain {
 
+    static final int MINIMUN_PARAMETERS = 3;
+
     /**
      * Execute converter script with provided arguments.
      * 
@@ -19,19 +23,46 @@ public class ConverterMain {
      * @throws IOException if there is a filesystem error.
      */
     public static void main(String[] args) throws IOException {
-        if (args.length == 0 || args[0] == null || args[0].isEmpty()) {
-            throw new IllegalArgumentException("This script need at least a file path as first argument");
+        final int firstFileArgPosition = MINIMUN_PARAMETERS - 1;
+        // validate we must have at least 3 arguments
+        if (args.length < MINIMUN_PARAMETERS)
+            throw new IllegalArgumentException("This script needs at least 3 arguments.");
+        if (args[firstFileArgPosition] == null || args[firstFileArgPosition].isEmpty()) {
+            throw new IllegalArgumentException(
+                    "This script need at least a file path as third argument.");
         }
-        String filePath = args[0];
-        File file = new File(filePath);
-        String targetNamespace;
-        if (args.length < 3)
-            targetNamespace = GmlConverter.DATEX_NS;
-        else
-            targetNamespace = args[2];
-        GmlConverter converter = new GmlConverter(file, Arrays.asList(args[1].split(",")), targetNamespace);
+        final int numberOfFiles = (args.length - MINIMUN_PARAMETERS) + 1;
+        // get files from arg[2] onward
+        final List<File> fileList = new ArrayList<>();
+        for (int i = 0; i < numberOfFiles; i++) {
+            final int currentPos = firstFileArgPosition + i;
+            String filePath = args[currentPos];
+            fileList.add(new File(filePath));
+        }
+        // get target namespace
+        String targetNamespace = args[1];
+        // instance converter
+        //        if (fileList.size() == 1) {
+        //            executeOneFileConverter(args, firstFileArgPosition, fileList,
+        // targetNamespace);
+        //        } else {
+        //            MultiFileGmlConverter.executeOnFilesystem(
+        //                    fileList, Arrays.asList(args[0].split(",")), targetNamespace);
+        //        }
+        MultiFileGmlConverter.executeOnFilesystem(
+                fileList, Arrays.asList(args[0].split(",")), targetNamespace);
+    }
+
+    protected static void executeOneFileConverter(
+            String[] args,
+            final int firstFileArgPosition,
+            final List<File> fileList,
+            String targetNamespace)
+            throws IOException {
+        GmlConverter converter =
+                new GmlConverter(fileList, Arrays.asList(args[0].split(",")), targetNamespace);
         String result = converter.convert().getResultDocAsString();
-        File out = new File(filePath + ".converted");
+        File out = new File(args[firstFileArgPosition] + ".converted");
         FileUtils.writeStringToFile(out, result, StandardCharsets.UTF_8);
     }
 

@@ -1,13 +1,12 @@
 package org.geosolutions.datexgml;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPath;
@@ -16,44 +15,36 @@ import javax.xml.xpath.XPathFactory;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 
-/**
- * Tests for {@link GmlConverter} class.
- */
+/** Tests for {@link MultiFileGmlConverter} class. */
 public class GmlConverterTest {
 
-    GmlConverter getConverter() {
-        try {
-            return new GmlConverter(new File(this.getClass().getResource("datex.xsd").toURI()),
-                    Arrays.asList("Situation"), GmlConverter.DATEX_NS);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+    Document getResultList() throws Exception {
+        List<File> fileList = new ArrayList<>();
+        fileList.add(new File(this.getClass().getResource("datex.xsd").toURI()));
+
+        return MultiFileGmlConverter.executeAndGet(
+                fileList,
+                Arrays.asList("D2LogicalModel:Situation".split(",")),
+                "http://datex2.eu/schema/2/datex2");
     }
 
-    @Test
-    public void testSituationNode() {
-        GmlConverter conv = getConverter();
-        Node situationNode = conv.getSituationRootNode();
-        assertTrue(situationNode != null);
-    }
-
-    /**
-     * Checks output document and its content.
-     */
+    /** Checks output document and its content. */
     @Test
     public void testOutputDocument() throws Exception {
-        final GmlConverter conv = getConverter();
-        conv.convert();
-        final Document doc = conv.getResultDoc();
+        final Document doc = getResultList();
         final XPath xpath = getXpath();
-        final Long numComplexTypes = Long.parseLong(xpath.evaluate("count(/schema/complexType)", doc));
+        final Long numComplexTypes =
+                Long.parseLong(xpath.evaluate("count(/schema/complexType)", doc));
         assertEquals(42L, numComplexTypes.longValue());
-        String baseXpath = "./complexType[@name='OpenlrLastLocationReferencePointType']"
-                + "/complexContent/extension/@base";
-        String base = (String) xpath.compile(baseXpath).evaluate(doc.getDocumentElement(), XPathConstants.STRING);
-        assertEquals("D2LogicalModel:OpenlrBaseLocationReferencePoint", base);
+        String baseXpath =
+                "./complexType[@name='OpenlrLastLocationReferencePointType']"
+                        + "/complexContent/extension/@base";
+        String base =
+                (String)
+                        xpath.compile(baseXpath)
+                                .evaluate(doc.getDocumentElement(), XPathConstants.STRING);
+        assertEquals("sit:OpenlrBaseLocationReferencePoint", base);
     }
 
     private XPath getXpath() {
@@ -84,13 +75,4 @@ public class GmlConverterTest {
             }
         };
     }
-
-    @Test
-    public void testSituationToMap() throws Exception {
-        GmlConverter conv = getConverter();
-        conv.treeToComplexMap("Situation");
-        Map<String, ComplexType> map = conv.getComplexMap();
-        assertEquals(42, map.size());
-    }
-
 }
