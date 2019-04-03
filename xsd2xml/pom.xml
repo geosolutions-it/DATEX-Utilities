@@ -46,7 +46,7 @@
 			                <transformers>
 			                    <transformer implementation=
 			                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-			                        <mainClass>org.geosolutions.datexgml.ConverterMain</mainClass>
+			                        <mainClass>it.geosolutions.xsd2gml.Main</mainClass>
 			                </transformer>
 			            </transformers>
 			        </configuration>
