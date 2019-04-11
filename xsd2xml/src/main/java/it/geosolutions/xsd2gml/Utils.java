@@ -1,13 +1,11 @@
 package it.geosolutions.xsd2gml;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,6 +17,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -60,7 +60,7 @@ final class Utils {
                         "The provided node can't be converted to a node: %s", node.toString()));
     }
 
-    static String documentToString(Document document) {
+    static String documentToStringNpraPrefixed(Document document) {
         try {
             // indent the document with two spaces and we don't want XML declarations
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -72,6 +72,25 @@ final class Utils {
             StringWriter writer = new StringWriter();
             transformer.transform(new DOMSource(document), new StreamResult(writer));
             return writer.getBuffer().toString().replace("D2LogicalModel", "npra");
+        } catch (Exception exception) {
+            throw new RuntimeException(
+                    "Something bad happen when writing the document to the provided output stream.",
+                    exception);
+        }
+    }
+
+    static String documentToString(Document document) {
+        try {
+            // indent the document with two spaces and we don't want XML declarations
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            transformerFactory.setAttribute("indent-number", 2);
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            // write to the string output and get the result back
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(document), new StreamResult(writer));
+            return writer.getBuffer().toString();
         } catch (Exception exception) {
             throw new RuntimeException(
                     "Something bad happen when writing the document to the provided output stream.",
@@ -197,5 +216,27 @@ final class Utils {
             return name + "PropertyType";
         }
         return String.format("%s:%sPropertyType", targetNamespace.getPrefix(), name);
+    }
+
+    static List<Attr> searchAttributes(Node startingNode, String xpath) {
+        try {
+            XPath xpathBuilder = XPathFactory.newInstance().newXPath();
+            NodeList nodes =
+                    (NodeList)
+                            xpathBuilder
+                                    .compile(xpath)
+                                    .evaluate(startingNode, XPathConstants.NODESET);
+            if (nodes == null || nodes.getLength() == 0) {
+                return new ArrayList<>();
+            }
+            List<Attr> attributes = new ArrayList<>();
+            for (int i = 0; i < nodes.getLength(); i++) {
+                attributes.add((Attr) nodes.item(i));
+            }
+            return attributes;
+        } catch (Exception exception) {
+            throw new RuntimeException(
+                    String.format("Error compiling \\ executing xpath '%s'.", xpath), exception);
+        }
     }
 }

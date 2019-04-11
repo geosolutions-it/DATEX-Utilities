@@ -4,6 +4,7 @@ import static it.geosolutions.xsd2gml.Utils.extractUnqualifiedTypeName;
 import static it.geosolutions.xsd2gml.Utils.searchElement;
 import static it.geosolutions.xsd2gml.Utils.searchElements;
 import static it.geosolutions.xsd2gml.Utils.unQualifyName;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -143,9 +145,8 @@ final class SchemaWalker {
                         inputSchema,
                         String.format("/schema/complexType[@name='%s']", superTypeName));
         if (parent == null) {
-            // super type not found, there is nothing else we can do
-            throw new RuntimeException(
-                    String.format("Type definition for '%s' not found.", superTypeName));
+            // super type not found
+            return;
         }
         // let's check if we already visited the super type
         if (!relatedTypes.contains(parent)) {

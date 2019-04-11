@@ -3,7 +3,7 @@ package it.geosolutions.xsd2gml;
 import static it.geosolutions.xsd2gml.TestsUtils.getComplexTypes;
 import static it.geosolutions.xsd2gml.TestsUtils.getNpraNamespace;
 import static it.geosolutions.xsd2gml.TestsUtils.readDatex23Schema;
-import static it.geosolutions.xsd2gml.Utils.documentToString;
+import static it.geosolutions.xsd2gml.Utils.documentToStringNpraPrefixed;
 import static it.geosolutions.xsd2gml.Utils.searchElement;
 import static it.geosolutions.xsd2gml.Utils.searchElements;
 import static it.geosolutions.xsd2gml.Xsd2Gml.createOutputSchema;
@@ -38,7 +38,7 @@ public final class ComplexTypeTest {
         searchElements(outputSchema, "/schema/element[@name='Situation']");
         searchElement(outputSchema, "/schema/complexType[@name='SituationType']");
         searchElement(outputSchema, "/schema/complexType[@name='SituationTypePropertyType']");
-        String c = documentToString(outputSchema);
+        String c = documentToStringNpraPrefixed(outputSchema);
     }
 
     @Test
@@ -60,6 +60,6 @@ public final class ComplexTypeTest {
         searchElements(outputSchema, "/schema/element[@name='Situation']");
         searchElement(outputSchema, "/schema/complexType[@name='SituationType']");
         searchElement(outputSchema, "/schema/complexType[@name='SituationTypePropertyType']");
-        String c = documentToString(outputSchema);
+        String c = documentToStringNpraPrefixed(outputSchema);
     }
 }
