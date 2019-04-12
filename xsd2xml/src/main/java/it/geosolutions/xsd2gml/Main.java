@@ -29,18 +29,47 @@ public class Main {
                     "This script need at least a file path as first argument");
         }
         String filePath = args[0];
-        if (checkIfIsDirectory(filePath)) {
-            // save a merged document from all .xsd files on directory
-            List<Document> docs = loadXsdDocumentFromDirectory(filePath);
-            Document mergedDoc =
-                    DocumentsMerger.merge(docs, "D2LogicalModel", "http://targetnamespace.org/1.0");
-            String result = Utils.documentToString(mergedDoc);
-            File out = new File(filePath, "merged");
-            FileUtils.writeStringToFile(out, result, StandardCharsets.UTF_8);
-            // swap filePath to merged file
-            filePath = out.getAbsolutePath();
+        File mergeTempFile = null;
+        try {
+            // if is a directory, merge schema files
+            if (checkIfIsDirectory(filePath)) {
+                // save a merged document from all .xsd files on directory
+                List<Document> docs = loadXsdDocumentFromDirectory(filePath);
+                Document mergedDoc =
+                        DocumentsMerger.merge(
+                                docs, "D2LogicalModel", "http://targetnamespace.org/1.0");
+                String result = Utils.documentToString(mergedDoc);
+                mergeTempFile = new File(filePath, "merged");
+                FileUtils.writeStringToFile(mergeTempFile, result, StandardCharsets.UTF_8);
+                // swap filePath to merged file
+                filePath = mergeTempFile.getAbsolutePath();
+            }
+            // build default path
+            String defaultPath;
+            if (mergeTempFile != null) {
+                defaultPath =
+                        mergeTempFile.getAbsolutePath()
+                                + File.separator
+                                + "convertedSchema"
+                                + File.separator
+                                + "gmlSchema.xsd.converted";
+            } else {
+                defaultPath = filePath + ".converted";
+            }
+            // ask to user output file
+            String outputFile;
+            if (args.length < 5) {
+                outputFile = defaultPath;
+            } else {
+                outputFile = args[4];
+            }
+            convertSingleFile(args, filePath, outputFile);
+        } finally {
+            // clean merge file if was used
+            if (mergeTempFile != null) {
+                mergeTempFile.delete();
+            }
         }
-        convertSingleFile(args, filePath);
     }
 
     static List<Document> loadXsdDocumentFromDirectory(String dirPath) {
@@ -63,7 +92,8 @@ public class Main {
         return file.isDirectory();
     }
 
-    private static void convertSingleFile(String[] args, String filePath) throws IOException {
+    private static void convertSingleFile(String[] args, String filePath, String outFilePath)
+            throws IOException {
         Document document = Utils.readDocument(filePath);
         List<String> rootTypes = Arrays.asList(args[1].split(","));
         QName targetNamespace = new QName(args[3], args[2], args[2]);
@@ -71,7 +101,7 @@ public class Main {
         String result = Utils.documentToStringNpraPrefixed(converter.getGmlSchema());
         // add gml extras if it's required
         result = addGmlExtras(result);
-        File out = new File(filePath + ".converted");
+        File out = new File(outFilePath);
         FileUtils.writeStringToFile(out, result, StandardCharsets.UTF_8);
     }
 

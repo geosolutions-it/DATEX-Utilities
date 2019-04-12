@@ -32,8 +32,14 @@ final class Utils {
         try (InputStream input = new FileInputStream(filePath)) {
             return readDocument(input);
         } catch (Exception exception) {
-            throw new RuntimeException(String.format("Error reading document from file '%s'.", filePath));
-        } 
+            throw new RuntimeException(
+                    String.format(
+                            "file or directory '%s' does not exists or have errors, "
+                                    + "please check if you are using the correct filesystem path"
+                                    + " or check possible XML errors: \n"
+                                    + exception.getMessage(),
+                            filePath));
+        }
     }
     
     static Document readDocument(InputStream input) {
