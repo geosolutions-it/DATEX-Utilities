@@ -3,14 +3,16 @@ package it.geosolutions.xsd2gml;
 import static it.geosolutions.xsd2gml.TestsUtils.readDatex23Schema;
 import static it.geosolutions.xsd2gml.Utils.extractUnqualifiedTypeName;
 import static java.util.Arrays.asList;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,8 +27,8 @@ public final class SchemaWalkerTest {
         List<String> types = asList("GroupOfLocationsLinear");
         SchemaWalker walker = new SchemaWalker(datex23Schema, types);
         // let's check the result
-        assertThat(walker.getRootSimpleTypes().size(), is(4));
-        assertThat(walker.getRootComplexTypes().size(), is(11));
+        assertThat(walker.getRootSimpleTypes().size(), is(35));
+        assertThat(walker.getRootComplexTypes().size(), is(127));
         assertThat(
                 contains(
                         walker.getRootComplexTypes(), "GroupOfLocationsLinear", "GroupOfLocations"),
@@ -39,8 +41,8 @@ public final class SchemaWalkerTest {
         List<String> types = asList("Location");
         SchemaWalker walker = new SchemaWalker(datex23Schema, types);
         // let's check the result
-        assertThat(walker.getRootSimpleTypes().size(), is(3));
-        assertThat(walker.getRootComplexTypes().size(), is(6));
+        assertThat(walker.getRootSimpleTypes().size(), is(35));
+        assertThat(walker.getRootComplexTypes().size(), is(127));
     }
 
     @Test
@@ -49,8 +51,8 @@ public final class SchemaWalkerTest {
         List<String> types = asList("Situation");
         SchemaWalker walker = new SchemaWalker(datex23Schema, types);
         // let's check the result
-        assertThat(walker.getRootSimpleTypes().size(), is(30));
-        assertThat(walker.getRootComplexTypes().size(), is(35));
+        assertThat(walker.getRootSimpleTypes().size(), is(152));
+        assertThat(walker.getRootComplexTypes().size(), is(274));
     }
 
     @Test
@@ -59,8 +61,8 @@ public final class SchemaWalkerTest {
         List<String> types = asList("SituationRecord");
         SchemaWalker walker = new SchemaWalker(datex23Schema, types);
         // let's check the result
-        assertThat(walker.getRootSimpleTypes().size(), is(30));
-        assertThat(walker.getRootComplexTypes().size(), is(35));
+        assertThat(walker.getRootSimpleTypes().size(), is(149));
+        assertThat(walker.getRootComplexTypes().size(), is(272));
     }
 
     @Test
@@ -71,8 +73,8 @@ public final class SchemaWalkerTest {
         // let's check the result
         List<String> names = walker.getRootSimpleTypes().stream().map(e -> e.getAttribute("name")).collect(Collectors.toList());
         Collections.sort(names);
-        assertThat(walker.getRootSimpleTypes().size(), is(30));
-        assertThat(walker.getRootComplexTypes().size(), is(35));
+        assertThat(walker.getRootSimpleTypes().size(), is(24));
+        assertThat(walker.getRootComplexTypes().size(), is(23));
     }
     
     private boolean contains(
