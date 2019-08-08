@@ -38,7 +38,7 @@ public final class ComplexTypeTest {
         searchElements(outputSchema, "/schema/element[@name='Situation']");
         searchElement(outputSchema, "/schema/complexType[@name='SituationType']");
         searchElement(outputSchema, "/schema/complexType[@name='SituationTypePropertyType']");
-        String c = documentToStringNpraPrefixed(outputSchema);
+        String c = documentToStringNpraPrefixed(outputSchema, "npra");
     }
 
     @Test
@@ -60,6 +60,6 @@ public final class ComplexTypeTest {
         searchElements(outputSchema, "/schema/element[@name='Situation']");
         searchElement(outputSchema, "/schema/complexType[@name='SituationType']");
         searchElement(outputSchema, "/schema/complexType[@name='SituationTypePropertyType']");
-        String c = documentToStringNpraPrefixed(outputSchema);
+        String c = documentToStringNpraPrefixed(outputSchema, "npra");
     }
 }

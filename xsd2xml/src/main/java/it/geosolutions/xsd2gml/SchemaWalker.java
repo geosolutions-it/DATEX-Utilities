@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 final class SchemaWalker {
 
@@ -76,13 +77,19 @@ final class SchemaWalker {
         }
         // let's see if this is a complex type
         Element complexType =
-                searchElement(
-                        inputSchema,
-                        String.format("/schema/complexType[@name='%s']", unqualifiedTypeName));
+                searchComplexType(unqualifiedTypeName);
         if (complexType != null) {
             // yes this is a complex type, let's check if we already visit it
             if (rootComplexTypes.get(complexType) != null) {
                 // yes we did, so let's move on
+                return;
+            }
+            // check for simpleContent/extension/@base type-name
+            final Element simpleExtensionElement =
+                    searchElement(complexType, "./simpleContent/extension");
+            if (simpleExtensionElement != null && simpleExtensionElement.hasAttribute("base")) {
+                rootSimpleTypes.add(complexType);
+                walkTypeProperties(extractUnqualifiedTypeName(simpleExtensionElement, "base"));
                 return;
             }
             // so we found a new root complex type, let's store it
@@ -102,7 +109,7 @@ final class SchemaWalker {
             }
             return;
         }
-        // this is a simple type
+        // is this a simple type?
         Element simpleType =
                 searchElement(
                         inputSchema,
@@ -110,9 +117,14 @@ final class SchemaWalker {
         if (simpleType != null) {
             rootSimpleTypes.add(simpleType);
         } else {
-            throw new RuntimeException(
-                    String.format("Type definition for '%s' not found.", unqualifiedTypeName));
+              throw new RuntimeException(
+                      String.format("Type definition for '%s' not found.", unqualifiedTypeName));
         }
+    }
+
+    private Element searchComplexType(String unqualifiedTypeName) {
+        return searchElement(
+                inputSchema, String.format("/schema/complexType[@name='%s']", unqualifiedTypeName));
     }
 
     /**
@@ -141,9 +153,7 @@ final class SchemaWalker {
         }
         // search for the super type, it should be a complex type
         Element parent =
-                searchElement(
-                        inputSchema,
-                        String.format("/schema/complexType[@name='%s']", superTypeName));
+                searchComplexType(superTypeName);
         if (parent == null) {
             // super type not found
             return;

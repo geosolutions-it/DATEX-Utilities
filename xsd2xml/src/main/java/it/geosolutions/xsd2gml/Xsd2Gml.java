@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public final class Xsd2Gml {
 
@@ -16,28 +17,40 @@ public final class Xsd2Gml {
 
     private final Document outputSchema;
     private final Element outputRootNode;
+    private final QName targetNamespace;
 
-    public Xsd2Gml(Document inputSchema, QName targetNamespace, List<String> startingTypesNames) {
+    public Xsd2Gml(
+            Document inputSchema, final QName targetNamespace, List<String> startingTypesNames) {
         // create and initiate the GML output schema document
+        this.targetNamespace = targetNamespace;
         outputSchema = createOutputSchema();
         outputRootNode = initOutputSchema(inputSchema, outputSchema, targetNamespace);
         // walk the schema to get the relevant types and relations
         SchemaWalker walker = new SchemaWalker(inputSchema, startingTypesNames);
-        walker.getRootComplexTypes()
+        // filter complex-content only
+        walker.getRootComplexTypes().entrySet().stream()
+                .filter(e -> !isSimpleContent(e.getKey()))
                 .forEach(
-                        (complexType, relatedTypes) -> {
+                        e -> {
                             ComplexTypeConverter converter =
-                                    new ComplexTypeConverter(
-                                            inputSchema, complexType, relatedTypes);
+                                    new ComplexTypeConverter(inputSchema, e.getKey(), e.getValue());
                             converter.toGmlFeature(outputSchema, outputRootNode, targetNamespace);
                         });
-        walker.getRootSimpleTypes()
-                .forEach(
-                        simpleType -> {
-                            Node node = simpleType.cloneNode(true);
-                            outputSchema.adoptNode(node);
-                            outputRootNode.appendChild(node);
-                        });
+        walker.getRootSimpleTypes().forEach(simpleType -> adoptSimpleType(simpleType));
+        walker.getRootComplexTypes().entrySet().stream()
+                .filter(e -> isSimpleContent(e.getKey()))
+                .forEach(e -> adoptSimpleType(e.getKey()));
+    }
+    
+    private void adoptSimpleType(Element simpleType) {
+        Element node = (Element) simpleType.cloneNode(true);
+        outputSchema.adoptNode(node);
+        outputRootNode.appendChild(node);
+    }
+
+    private boolean isSimpleContent(Element complexType) {
+        NodeList simples = complexType.getElementsByTagName("xs:simpleContent");
+        return simples.getLength() > 0;
     }
 
     static Document createOutputSchema() {
@@ -123,7 +136,7 @@ public final class Xsd2Gml {
         element = outputSchema.createElementNS(XML_NAMESPACE, "xs:element");
         element.setAttribute("name", "MultilingualString");
         element.setAttribute("substitutionGroup", "gml:AbstractFeature");
-        element.setAttribute("type", "npra:MultilingualStringType");
+        element.setAttribute("type", targetNamespace.getPrefix() + ":MultilingualStringType");
         outputRootNode.appendChild(element);
         // create and append property type
         complexType = outputSchema.createElementNS(XML_NAMESPACE, "xs:complexType");
@@ -133,7 +146,7 @@ public final class Xsd2Gml {
         sequence.setAttribute("minOccurs", "0");
         complexType.appendChild(sequence);
         element = outputSchema.createElementNS(XML_NAMESPACE, "xs:element");
-        element.setAttribute("ref", "npra:MultilingualString");
+        element.setAttribute("ref", targetNamespace.getPrefix() + ":MultilingualString");
         sequence.appendChild(element);
         Element group = outputSchema.createElementNS(XML_NAMESPACE, "xs:attributeGroup");
         group.setAttribute("ref", "gml:AssociationAttributeGroup");

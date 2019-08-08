@@ -106,15 +106,30 @@ final class ComplexTypesMerger {
     private boolean isSimpleType(Document schema, Element property) {
         String name = extractUnqualifiedTypeName(property, "type");
         // we look for either a simple or a complex type definition to be sure the type exists
-        if (searchElement(schema, String.format("/schema/complexType[@name='%s']", name)) != null) {
+        if (isComplexTypeWithoutSimpleContent(schema, name)) {
             // it's a complex type
             return false;
         }
-        if (searchElement(schema, String.format("/schema/simpleType[@name='%s']", name)) != null) {
+        if (searchElement(schema, String.format("/schema/simpleType[@name='%s']", name)) != null
+                || isComplexTypeWithSimpleContent(schema, name)) {
             // it's a simple type
             return true;
         }
         // strange, we didn't found the type
         throw new RuntimeException(String.format("Definition for type '%s' not found.", name));
+    }
+
+    private boolean isComplexTypeWithoutSimpleContent(Document schema, String name) {
+        final Element complexElement =
+                searchElement(schema, String.format("/schema/complexType[@name='%s']", name));
+        if (complexElement == null) return false;
+        return searchElement(complexElement, "simpleContent") == null;
+    }
+
+    private boolean isComplexTypeWithSimpleContent(Document schema, String name) {
+        final Element complexElement =
+                searchElement(schema, String.format("/schema/complexType[@name='%s']", name));
+        if (complexElement == null) return false;
+        return searchElement(complexElement, "simpleContent") != null;
     }
 }

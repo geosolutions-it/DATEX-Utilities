@@ -98,14 +98,16 @@ public class Main {
         List<String> rootTypes = Arrays.asList(args[1].split(","));
         QName targetNamespace = new QName(args[3], args[2], args[2]);
         Xsd2Gml converter = new Xsd2Gml(document, targetNamespace, rootTypes);
-        String result = Utils.documentToStringNpraPrefixed(converter.getGmlSchema());
+        String result =
+                Utils.documentToStringNpraPrefixed(
+                        converter.getGmlSchema(), targetNamespace.getPrefix());
         // add gml extras if it's required
-        result = addGmlExtras(result);
+        result = addGmlExtras(result, targetNamespace.getPrefix());
         File out = new File(outFilePath);
         FileUtils.writeStringToFile(out, result, StandardCharsets.UTF_8);
     }
 
-    static String addGmlExtras(String documentText) {
+    static String addGmlExtras(String documentText, String targetPrefix) {
         try {
             Document inputDocument = GmlDiff.documentFromText(documentText);
             InputStream resourceAsStream =
@@ -114,7 +116,8 @@ public class Main {
             InputStream diffFileStream =
                     Main.class.getClassLoader().getResourceAsStream("report.txt");
             String diffText = IOUtils.toString(diffFileStream, StandardCharsets.UTF_8);
-            DiffApplier diffApplier = new DiffApplier(inputDocument, targetDocument, diffText);
+            DiffApplier diffApplier =
+                    new DiffApplier(inputDocument, targetDocument, diffText, targetPrefix);
             Document resultDocument = diffApplier.applyDifferences();
             return Utils.documentToString(resultDocument);
         } catch (IOException e) {

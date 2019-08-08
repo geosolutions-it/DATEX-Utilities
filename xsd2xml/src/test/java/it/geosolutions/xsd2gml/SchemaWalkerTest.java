@@ -22,6 +22,15 @@ public final class SchemaWalkerTest {
     private final Document datex23Schema = readDatex23Schema();
 
     @Test
+    public void testSimpleContent() {
+        // _ProbabilityOfOccurrenceEnum
+        List<String> types = asList("_ProbabilityOfOccurrenceEnum");
+        SchemaWalker walker = new SchemaWalker(datex23Schema, types);
+        assertThat(walker.getRootSimpleTypes().size(), is(2));
+        assertThat(walker.getRootComplexTypes().size(), is(0));
+    }
+
+    @Test
     public void testWalkingGroupOfLocationsLinearComplexType() {
         // we should only find the 'GroupOfLocations' super type
         List<String> types = asList("GroupOfLocationsLinear");

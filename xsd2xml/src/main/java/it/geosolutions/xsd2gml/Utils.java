@@ -66,7 +66,7 @@ final class Utils {
                         "The provided node can't be converted to a node: %s", node.toString()));
     }
 
-    static String documentToStringNpraPrefixed(Document document) {
+    static String documentToStringNpraPrefixed(Document document, String targetPrefix) {
         try {
             // indent the document with two spaces and we don't want XML declarations
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -77,7 +77,7 @@ final class Utils {
             // write to the string output and get the result back
             StringWriter writer = new StringWriter();
             transformer.transform(new DOMSource(document), new StreamResult(writer));
-            return writer.getBuffer().toString().replace("D2LogicalModel", "npra");
+            return writer.getBuffer().toString().replace("D2LogicalModel", targetPrefix);
         } catch (Exception exception) {
             throw new RuntimeException(
                     "Something bad happen when writing the document to the provided output stream.",
