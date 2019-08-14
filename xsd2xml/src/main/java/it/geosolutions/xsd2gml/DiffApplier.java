@@ -9,25 +9,32 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class DiffApplier {
 
     private static final Logger LOGGER = Logger.getLogger(DiffApplier.class.getName());
+    private static final String TEMPLATE_PREFIX = "npra";
+    private static final List<String> ATTRIBUTES_TO_REPLACE = Arrays.asList("type", "base");
 
     private Document originalDoc;
 
     private Document templateDoc;
     private Set<String> xpathRules;
+    private final String targetPrefix;
 
-    public DiffApplier(Document originalDoc, Document templateDoc, String diffText) {
+    public DiffApplier(
+            Document originalDoc, Document templateDoc, String diffText, String targetPrefix) {
         super();
         this.originalDoc = originalDoc;
         this.templateDoc = templateDoc;
+        this.targetPrefix = targetPrefix;
         List<String> diffList = Arrays.asList(diffText.split("\\r?\\n"));
         xpathRules = new HashSet<String>(diffList);
     }
@@ -45,8 +52,9 @@ public class DiffApplier {
                     Element templateElement = findElementsXpath(xpath, templateDoc).get(0);
                     checkRepeatedElement(parentXpathExpression, templateElement);
                     // import the template Element
-                    Node importedNode = originalDoc.importNode(templateElement, true);
+                    Element importedNode = (Element) originalDoc.importNode(templateElement, true);
                     originParentElement.appendChild(importedNode);
+                    replacePrefixes(importedNode);
                 }
             } catch (Exception ex) {
                 LOGGER.log(Level.WARNING, ex.getMessage(), ex);
@@ -66,6 +74,25 @@ public class DiffApplier {
             element.setAttribute("type", "npra:GroupOfLocationsType");
         }
         return originalDoc;
+    }
+
+    private void replacePrefixes(Element element) {
+        // try to replace attributes
+        for (String att : ATTRIBUTES_TO_REPLACE) {
+            if (element.hasAttribute(att) && element.getAttribute(att).contains(":")) {
+                String[] parts = element.getAttribute(att).split(Pattern.quote(":"));
+                if (parts.length == 2 && TEMPLATE_PREFIX.equals(parts[0]))
+                    element.setAttribute(att, targetPrefix + ":" + parts[1]);
+            }
+        }
+        // check child elements and use recursion
+        NodeList childNodes = element.getChildNodes();
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            Node node = childNodes.item(i);
+            if (node instanceof Element) {
+                replacePrefixes((Element) node);
+            }
+        }
     }
 
     private void cleanRepeatedNameElements() {

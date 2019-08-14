@@ -22224,4 +22224,21 @@ geometrical polygon.</xs:documentation>
 	  </xs:extension>
 	</xs:complexContent>
   </xs:complexType>	
+  
+  <xs:complexType name="_ProbabilityOfOccurrenceEnum">
+    <xs:simpleContent>
+        <xs:extension base="D2LogicalModel:ProbabilityOfOccurrenceEnum">
+            <xs:attribute name="_extendedValue" type="xs:string"/>
+        </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ProbabilityOfOccurrenceEnum">
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="certain"/>
+        <xs:enumeration value="probable"/>
+        <xs:enumeration value="riskOf"/>
+        <xs:enumeration value="_extended"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
 </xs:schema>

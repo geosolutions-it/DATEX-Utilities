@@ -25,7 +25,7 @@ public final class Xsd2GmlTest {
         Xsd2Gml xsd2Gml =
                 new Xsd2Gml(datex23Schema, getNpraNamespace(), Arrays.asList("GroupOfLocationsLinear"));
         Document result = xsd2Gml.getGmlSchema();
-        String content = documentToStringNpraPrefixed(result);
+        String content = documentToStringNpraPrefixed(result, "npra");
     }
 
     @Test
@@ -33,7 +33,7 @@ public final class Xsd2GmlTest {
         Xsd2Gml xsd2Gml =
                 new Xsd2Gml(datex23Schema, getNpraNamespace(), Arrays.asList("Situation"));
         Document result = xsd2Gml.getGmlSchema();
-        String content = documentToStringNpraPrefixed(result);
+        String content = documentToStringNpraPrefixed(result, "npra");
     }
 
     @Test
@@ -41,7 +41,7 @@ public final class Xsd2GmlTest {
         Xsd2Gml xsd2Gml =
                 new Xsd2Gml(datex23Schema, getNpraNamespace(), Arrays.asList("TravelTimeData"));
         Document result = xsd2Gml.getGmlSchema();
-        String content = documentToStringNpraPrefixed(result);
+        String content = documentToStringNpraPrefixed(result, "npra");
     }
 
     @Test
@@ -49,7 +49,8 @@ public final class Xsd2GmlTest {
         Xsd2Gml xsd2Gml =
                 new Xsd2Gml(datex23Schema, getNpraNamespace(), Arrays.asList("Situation", "CctvCameraMetadataRecord"));
         Document result = xsd2Gml.getGmlSchema();
-        String content = Main.addGmlExtras(documentToStringNpraPrefixed(result));
+        String content =
+                Main.addGmlExtras(documentToStringNpraPrefixed(result, "prefix"), "prefix");
         //        File testResultFile =
         //                new
         // File("C:\\Users\\fmino\\Documents\\NPRA\\convert_test\\datex2\\testResult.xsd");
