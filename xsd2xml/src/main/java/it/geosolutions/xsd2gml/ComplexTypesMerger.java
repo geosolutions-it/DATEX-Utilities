@@ -110,8 +110,7 @@ final class ComplexTypesMerger {
             // it's a complex type
             return false;
         }
-        if (searchElement(schema, String.format("/schema/simpleType[@name='%s']", name)) != null
-                || isComplexTypeWithSimpleContent(schema, name)) {
+	if (searchElement(schema, String.format("/schema/simpleType[@name='%s']", name)) != null) {
             // it's a simple type
             return true;
         }
@@ -122,8 +121,7 @@ final class ComplexTypesMerger {
     private boolean isComplexTypeWithoutSimpleContent(Document schema, String name) {
         final Element complexElement =
                 searchElement(schema, String.format("/schema/complexType[@name='%s']", name));
-        if (complexElement == null) return false;
-        return searchElement(complexElement, "simpleContent") == null;
+	return !(complexElement == null);
     }
 
     private boolean isComplexTypeWithSimpleContent(Document schema, String name) {

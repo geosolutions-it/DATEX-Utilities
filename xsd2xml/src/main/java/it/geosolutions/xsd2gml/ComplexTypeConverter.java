@@ -4,13 +4,22 @@ import static it.geosolutions.xsd2gml.Utils.extractUnqualifiedTypeName;
 import static it.geosolutions.xsd2gml.Utils.getName;
 import static it.geosolutions.xsd2gml.Utils.getPropertyTypeName;
 import static it.geosolutions.xsd2gml.Utils.getTypeName;
+import static it.geosolutions.xsd2gml.Utils.isSimpleContent;
+import static it.geosolutions.xsd2gml.Utils.qualify;
 import static it.geosolutions.xsd2gml.Xsd2Gml.XML_NAMESPACE;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.xml.namespace.QName;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 final class ComplexTypeConverter {
+
+    private static final String SIMPLE_TYPE_SUFIX = "SimpleType";
+
+    private static final Logger LOGGER = Logger.getLogger(ComplexTypeConverter.class.getName());
 
     private final Document inputSchema;
     private final Element typeDefinition;
@@ -33,7 +42,7 @@ final class ComplexTypeConverter {
      */
     void toGmlFeature(Document outputSchema, Element outputSchemaRootNode, QName targetNamespace) {
         addGmlFeatureConcreteElement(outputSchema, outputSchemaRootNode, targetNamespace);
-        addGmlFeatureType(outputSchema, outputSchemaRootNode, targetNamespace);
+	addGmlFeatureType(outputSchema, outputSchemaRootNode, targetNamespace);
         addGmlFeaturePropertyElement(outputSchema, outputSchemaRootNode, targetNamespace);
     }
 
@@ -57,6 +66,12 @@ final class ComplexTypeConverter {
         complexContent.appendChild(extension);
         extension.appendChild(annotation);
         extension.appendChild(sequence);
+	// if simple type
+	if (isSimpleContent(typeDefinition)) {
+	    if (LOGGER.isLoggable(Level.INFO))
+		LOGGER.info("Converting SimpleContent: " + typeDefinition.getAttribute("name"));
+	    handleSimpleContent(outputSchema, outputSchemaRootNode, targetNamespace, sequence);
+	}
         // merge ths complex type info with all the related types, i.e. super and extensions
         ComplexTypesMerger merger = new ComplexTypesMerger();
         merger.merge(inputSchema, targetNamespace, typeDefinition);
@@ -66,6 +81,21 @@ final class ComplexTypeConverter {
         merger.addDocumentation(outputSchema, annotation);
         merger.addAttributes(outputSchema, extension);
         merger.addProperties(outputSchema, sequence);
+    }
+
+    private void handleSimpleContent(Document outputSchema, Element outputSchemaRootNode, QName targetNamespace,
+	    Element sequence) {
+	// clone the complexType with simpleContent adding a sufix on the name
+	final Element simpleContentElement = (Element) typeDefinition.cloneNode(true);
+	String nameAttribute = simpleContentElement.getAttribute("name");
+	final String simpleTypeName = nameAttribute + SIMPLE_TYPE_SUFIX;
+	simpleContentElement.setAttribute("name", simpleTypeName);
+	outputSchemaRootNode.appendChild(outputSchema.adoptNode(simpleContentElement));
+	// build the generated element for this sufixed complex type on sequence
+	Element element = outputSchema.createElementNS(XML_NAMESPACE, "xs:element");
+	element.setAttribute("name", "value");
+	element.setAttribute("type", qualify(simpleTypeName, targetNamespace));
+	sequence.appendChild(element);
     }
 
     /**
@@ -83,7 +113,7 @@ final class ComplexTypeConverter {
         // create the XML element for the concrete instance
         Element element = outputSchema.createElementNS(XML_NAMESPACE, "xs:element");
         element.setAttribute("name", getName(name, null));
-        element.setAttribute("type", getTypeName(name, targetNamespace));
+	element.setAttribute("type", getTypeName(name, targetNamespace));
         // this is a GML feature
         element.setAttribute("substitutionGroup", "gml:AbstractFeature");
         outputSchemaRootNode.appendChild(element);
