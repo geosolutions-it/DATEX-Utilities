@@ -29,7 +29,6 @@ public final class Xsd2Gml {
         SchemaWalker walker = new SchemaWalker(inputSchema, startingTypesNames);
         // filter complex-content only
         walker.getRootComplexTypes().entrySet().stream()
-                .filter(e -> !isSimpleContent(e.getKey()))
                 .forEach(
                         e -> {
                             ComplexTypeConverter converter =
@@ -37,20 +36,12 @@ public final class Xsd2Gml {
                             converter.toGmlFeature(outputSchema, outputRootNode, targetNamespace);
                         });
         walker.getRootSimpleTypes().forEach(simpleType -> adoptSimpleType(simpleType));
-        walker.getRootComplexTypes().entrySet().stream()
-                .filter(e -> isSimpleContent(e.getKey()))
-                .forEach(e -> adoptSimpleType(e.getKey()));
     }
     
     private void adoptSimpleType(Element simpleType) {
         Element node = (Element) simpleType.cloneNode(true);
         outputSchema.adoptNode(node);
         outputRootNode.appendChild(node);
-    }
-
-    private boolean isSimpleContent(Element complexType) {
-        NodeList simples = complexType.getElementsByTagName("xs:simpleContent");
-        return simples.getLength() > 0;
     }
 
     static Document createOutputSchema() {

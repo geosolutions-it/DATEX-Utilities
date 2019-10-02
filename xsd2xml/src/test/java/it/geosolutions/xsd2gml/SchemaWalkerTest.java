@@ -26,8 +26,8 @@ public final class SchemaWalkerTest {
         // _ProbabilityOfOccurrenceEnum
         List<String> types = asList("_ProbabilityOfOccurrenceEnum");
         SchemaWalker walker = new SchemaWalker(datex23Schema, types);
-        assertThat(walker.getRootSimpleTypes().size(), is(2));
-        assertThat(walker.getRootComplexTypes().size(), is(0));
+	assertThat(walker.getRootSimpleTypes().size(), is(1));
+	assertThat(walker.getRootComplexTypes().size(), is(1));
     }
 
     @Test

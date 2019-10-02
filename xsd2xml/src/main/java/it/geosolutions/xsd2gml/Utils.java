@@ -245,4 +245,9 @@ final class Utils {
                     String.format("Error compiling \\ executing xpath '%s'.", xpath), exception);
         }
     }
+
+    static boolean isSimpleContent(Element complexType) {
+	NodeList simples = complexType.getElementsByTagName("xs:simpleContent");
+	return simples.getLength() > 0;
+    }
 }

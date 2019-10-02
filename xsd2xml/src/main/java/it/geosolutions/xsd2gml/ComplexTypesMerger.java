@@ -65,7 +65,8 @@ final class ComplexTypesMerger {
     private void extractProperties(Document schema, QName targetNamespace, Element complexType) {
         List<Element> elements = searchElements(complexType, "*//element");
         for (Element element : elements) {
-            if (isSimpleType(schema, element)) {
+	    if (isSimpleType(schema, element) || 
+		    (isComplexTypeWithSimpleContent(schema, element) && isSingle(element))) {
                 // is a simple property so we are done
                 String typeName = extractUnqualifiedTypeName(element, "type");
                 Element simpleProperty = toElement(element.cloneNode(true));
@@ -106,12 +107,11 @@ final class ComplexTypesMerger {
     private boolean isSimpleType(Document schema, Element property) {
         String name = extractUnqualifiedTypeName(property, "type");
         // we look for either a simple or a complex type definition to be sure the type exists
-        if (isComplexTypeWithoutSimpleContent(schema, name)) {
+        if (isComplexType(schema, name)) {
             // it's a complex type
             return false;
         }
-        if (searchElement(schema, String.format("/schema/simpleType[@name='%s']", name)) != null
-                || isComplexTypeWithSimpleContent(schema, name)) {
+	if (searchElement(schema, String.format("/schema/simpleType[@name='%s']", name)) != null) {
             // it's a simple type
             return true;
         }
@@ -119,11 +119,15 @@ final class ComplexTypesMerger {
         throw new RuntimeException(String.format("Definition for type '%s' not found.", name));
     }
 
-    private boolean isComplexTypeWithoutSimpleContent(Document schema, String name) {
+    private boolean isComplexType(Document schema, String name) {
         final Element complexElement =
                 searchElement(schema, String.format("/schema/complexType[@name='%s']", name));
-        if (complexElement == null) return false;
-        return searchElement(complexElement, "simpleContent") == null;
+	return !(complexElement == null);
+    }
+
+    private boolean isComplexTypeWithSimpleContent(Document schema, Element property) {
+	String name = extractUnqualifiedTypeName(property, "type");
+	return isComplexTypeWithSimpleContent(schema, name);
     }
 
     private boolean isComplexTypeWithSimpleContent(Document schema, String name) {
