@@ -87,8 +87,7 @@ final class ComplexTypeConverter {
 	    Element sequence) {
 	// clone the complexType with simpleContent adding a sufix on the name
 	final Element simpleContentElement = (Element) typeDefinition.cloneNode(true);
-	String nameAttribute = simpleContentElement.getAttribute("name");
-	final String simpleTypeName = nameAttribute + SIMPLE_TYPE_SUFIX;
+	final String simpleTypeName = simpleContentElement.getAttribute("name");
 	simpleContentElement.setAttribute("name", simpleTypeName);
 	outputSchemaRootNode.appendChild(outputSchema.adoptNode(simpleContentElement));
 	// build the generated element for this sufixed complex type on sequence
